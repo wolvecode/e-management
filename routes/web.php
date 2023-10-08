@@ -14,5 +14,26 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    // return view('reviewer.login');
     return view('welcome');
+});
+
+Route::get('/dashboard', function () {
+    return view('applicant.menu');
+});
+
+Route::get('/login', function () {
+    return view('admin.menu');
+});
+
+Route::get('/applicant', function () {
+    return view('admin.applicant-list');
+});
+
+Route::get('/reviewer', function () {
+    return view('admin.reviewer-list');
+});
+
+Route::get('/application', function () {
+    return view('applicant.application');
 });
