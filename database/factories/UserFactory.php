@@ -20,7 +20,11 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
+            'contact' => fake()->phoneNumber(),
+            'role' => 'applicant',
+            'profileLink' => 'https://drive.google.com/file/d/1Vd-9FvChHJOojpUYEIS6SyE74_f18HP9/view?usp=sharing',
             'email_verified_at' => now(),
+            'institution' => 'Obafemi Awolowo University',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
         ];

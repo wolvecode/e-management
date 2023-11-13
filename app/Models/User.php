@@ -21,10 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'firstname',
-        'lastname',
         'role',
-        'profile_link',
+        'profileLink',
         'onboarding_id',
         'institution',
         'faculty',
@@ -51,4 +49,33 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    //Relationship with application (Getting all application of an applicant )
+    public function application()
+    {
+        return $this->hasMany(Application::class, 'applicant_id');
+    }
+
+
+    //Relationship with reviewer application (Getting all application attached for reviewer)
+    public function reviewer_application()
+    {
+        return $this->hasMany(Application::class, 'assigned_reviewer_id');
+    }
+
+    //All applicants 
+    public function applicants()
+    {
+        return $this->hasMany(Reviewer::class, 'reviewer_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'reviewer_id');
+    }
+
+    public function comment()
+    {
+        return $this->hasOne(Comment::class, 'reviewer_id');
+    }
 }

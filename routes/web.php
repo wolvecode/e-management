@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,26 +17,85 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    // return view('reviewer.login');
     return view('welcome');
+})->name('login');
+
+
+
+Route::group(['middleware' => ['auth']], function () {
+    //only authorized users can access these routes
+    Route::group(array('prefix' => 'applicant'), function () {
+        Route::get('/dashboard', function () {
+            return view('applicant.menu');
+        });
+        //USER
+        Route::get('/{user}/edit', [UserController::class, 'edit']);
+        Route::patch('/{user}', [UserController::class, 'patch']);
+        Route::get('/application', [ApplicationController::class, 'index']);
+        Route::get('/application/{application}', [ApplicationController::class, 'show']);
+        Route::post('/application', [ApplicationController::class, 'store']);
+    });
+
+    Route::group(array('prefix' => 'reviewer'), function () {
+        Route::get('/dashboard', function () {
+            return view('reviewer.menu');
+        });
+        //USER
+        Route::post('/comment/{id}', [CommentController::class, 'store']);
+        Route::get('/{user}/edit', [UserController::class, 'edit']);
+        Route::patch('/{user}', [UserController::class, 'patch']);
+        Route::patch('/application/{application}', [ApplicationController::class, 'reviewerApprove']);
+        Route::patch('/application/reject/{application}', [ApplicationController::class, 'reviewerReject']);
+        Route::get('/application/{application}', [ApplicationController::class, 'show']);
+        Route::get('/application', [ApplicationController::class, 'index']);
+    });
+
+    Route::group(array('prefix' => 'admin'), function () {
+        Route::get('/dashboard', function () {
+            return view('admin.menu');
+        });
+        //USER
+        Route::get('/{user}/edit', [UserController::class, 'edit']);
+        Route::patch('/{user}', [UserController::class, 'patch']);
+        Route::get('/reviewer', [UserController::class, 'reviewer']);
+        Route::get('/applicant', [UserController::class, 'applicant']);
+        Route::get('/application', [ApplicationController::class, 'index'])->name('filters');
+        Route::get('/application/{application}', [ApplicationController::class, 'show']);
+        Route::patch('/application/{application}', [ApplicationController::class, 'approve']);
+        Route::patch('/application/reject/{application}', [ApplicationController::class, 'reject']);
+        Route::get('/add-admin', [UserController::class, 'addAdmin']);
+        Route::post('/add-admin', [UserController::class, 'addNewAdmin']);
+        Route::patch('/{application}/{user_id}', [ApplicationController::class, 'assign']);
+    });
+    Route::post('/logout', [UserController::class, 'logout']);
 });
 
-Route::get('/dashboard', function () {
-    return view('applicant.menu');
+
+Route::group(['middleware' => ['guest']], function () {
+    //only guests can access these routes
+    Route::group(array('prefix' => 'applicant'), function () {
+        Route::get('/', function () {
+            // dd(auth()->user());
+            return view('applicant.login');
+        });
+        Route::post('/register', [UserController::class, 'store']);
+        Route::post('/login', [UserController::class, 'login']);
+    });
+
+    Route::group(array('prefix' => 'reviewer'), function () {
+        Route::get('/', function () {
+            return view('reviewer.login');
+        });
+        Route::post('/register', [UserController::class, 'store']);
+        Route::post('/login', [UserController::class, 'login']);
+    });
+
+    Route::group(array('prefix' => 'admin'), function () {
+        Route::get('/', function () {
+            return view('admin.login');
+        });
+        Route::post('/login', [UserController::class, 'login']);
+    });
 });
 
-Route::get('/login', function () {
-    return view('admin.menu');
-});
-
-Route::get('/applicant', function () {
-    return view('admin.applicant-list');
-});
-
-Route::get('/reviewer', function () {
-    return view('admin.reviewer-list');
-});
-
-Route::get('/application', function () {
-    return view('applicant.application');
-});
+Route::patch('/storage/{application}', [ApplicationController::class, 'uploadApproval'])->name('viewLetter');

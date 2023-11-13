@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('firstname');
-            $table->string('lastname');
-            $table->string('Email')->unique();
+            $table->string('name');
+            $table->string('email')->unique();
             $table->enum('role', ['applicant', 'admin', 'super_admin', 'reviewer']);
             $table->string('profileLink')->nullable();
             $table->string('onboarding_id')->nullable();

@@ -20,6 +20,8 @@
 <body class="p-0 m-0 font-[Poppins]">
     @yield('content')
     
-    @stack('script')
+    @stack('scripts')
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <x-flash-message />
 </body>
 </html>
