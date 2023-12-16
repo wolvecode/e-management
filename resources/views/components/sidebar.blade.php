@@ -72,10 +72,14 @@
                         </div>
                     @endif
                     <div class="w-1/3 flex justify-end items-center ml-auto">
-                        <img class="mr-5" width="44px" src="{{ asset('images/profile.png') }}" alt="profile">
+                        <div class="h-12 w-12 bg-red-100 rounded-full mr-2">
+                            <img class="w-full h-full rounded-full"
+                                src="{{ strlen(auth()->user()->profileLink) == 0 ? asset('icons/default-profile.png') : asset('storage/' . auth()->user()->profileLink) }}"
+                                alt="profile">
+                        </div>
                         <div class="pl-4 border-l border-[#000]">
-                            <p class="">{{ auth()->user()->name }}</p>
-                            <h4 class="text-[#2640A1] text-xl fonts-semibold">Dashboard</h4>
+                            <p class="">{{ explode(' ', auth()->user()->name)[0] }}</p>
+                            <h4 class="text-[#2640A1] text-xl fonts-semibold">@yield('page')</h4>
                         </div>
                     </div>
                 </div>

@@ -110,7 +110,7 @@
 
     </div>
     <div class="flex text-[#F9FBFF] text-base bg-[#2640A1] mt-20 w-full p-10">
-        <div class="w-1/4 border-[#000000] border-r">
+        <div class="w-1/4 border-[#F9FBFF] border-r-[.5px]">
             <h3 class="text-sm font-normal">Research Ethics Office</h6>
                 <p class="w-3/4 font-light text-sm mt-4">University of Lagos & Obafemi Awolowo University</p>
                 <div class="flex font-light text-sm items-center mt-3">

@@ -18,6 +18,6 @@
     </div>
     <p class="text-center text-sm text-[#2640A1] mt-2">{{ $user->email }}</p>
     <div class="flex justify-end mt-5">
-        <p class="text-sm text-[#2640A1] bg-gray-100 px-5 py-1 rounded-xl">{{ $user->specialization }}</p>
+        <p class="text-sm text-[#2640A1] bg-gray-100 px-5 py-1 rounded-xl capitalize">{{ $user->specialization }}</p>
     </div>
 </div>

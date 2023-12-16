@@ -1,4 +1,6 @@
 @extends('components.sidebar')
+@section('page', 'Add-Admin')
+
 
 @section('sidebar-item')
     <li>
@@ -86,9 +88,9 @@
             @csrf
             <div class="bg-white rounded-lg p-8">
                 <div class="w-full">
-                    <p class="mb-4 before:content-['*'] before:ml-0.5 before:text-red-500">Note: All new admin added,
-                        password
-                        is defaulted to 1-8</p>
+                    <p class="mb-4 before:content-['*'] before:ml-0.5 before:text-red-500">
+                        Note: All newly added admin password is set to 1-8
+                    </p>
                     <div class="flex">
                         <label class="w-full">
                             <span
@@ -119,6 +121,26 @@
                         focus:ring-1"
                                 placeholder="Enter Email" value="{{ old('email') }}" />
                             @error('email')
+                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
+                        </label>
+                    </div>
+                    <div class="mt-5">
+                        <label class="w-full">
+                            <span
+                                class="after:content-['*'] after:ml-0.5 after:text-red-500  text-sm font-medium text-slate-700">
+                                Research Type
+                            </span>
+
+                            <select name="specialization" id=""
+                                class="h-12 px-3 py-2 bg-white
+                            border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none
+                            focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm 
+                            focus:ring-1">
+                                <option value="human">Human</option>
+                                <option value="animal">Animal</option>
+                            </select>
+                            @error('specialization')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
                         </label>

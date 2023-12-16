@@ -70,6 +70,7 @@ return [
         ],
 
         'log' => [
+            'driver' => 'log',
             'transport' => 'log',
             'channel' => env('MAIL_LOG_CHANNEL'),
         ],

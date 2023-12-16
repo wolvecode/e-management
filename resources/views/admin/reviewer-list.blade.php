@@ -1,4 +1,6 @@
 @extends('components.sidebar')
+@section('page', 'Reviewer List')
+
 
 @section('sidebar-item')
     <li>

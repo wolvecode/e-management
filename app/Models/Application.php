@@ -22,6 +22,7 @@ class Application extends Model
         'supporting_document',
         'approval_letter',
         'assigned_reviewer_id',
+        'edited_attachment',
         'category',
         'title',
         'description',

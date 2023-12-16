@@ -47,7 +47,7 @@ class ApplicationController extends Controller
             'description' => ['required', 'min:10'],
             'category' => ['required'],
             'attachment' =>  "required|mimes:docx,doc|max:10000",
-            'supporting_document' =>  "required|mimes:csv,txt,xlx,xls,pdf|max:10000"
+            'supporting_document' =>   "required|mimes:docx,doc|max:10000",
         ]);
 
 
@@ -87,7 +87,7 @@ class ApplicationController extends Controller
     public function uploadApproval(Request $request, Application $application)
     {
         $formFields = $request->validate([
-            'approval_letter' =>  "required|mimes:csv,txt,xlx,xls,pdf|max:10000"
+            'approval_letter' => "required|mimes:docx,doc|max:10000",
         ]);
 
         if ($request->hasFile('approval_letter')) {
@@ -97,6 +97,21 @@ class ApplicationController extends Controller
         return back()->with('message', 'Letter uploaded');
     }
 
+    /**
+     * Upload reviewer edited document.
+     */
+    public function reviewerUpload(Request $request, Application $application)
+    {
+        $formFields = $request->validate([
+            'edited_attachment' =>  "required|mimes:docx,doc|max:10000",
+        ]);
+
+        if ($request->hasFile('edited_attachment')) {
+            $formFields['edited_attachment'] = $request->file('edited_attachment')->store('edited', 'public');
+        }
+        $application->update($formFields);
+        return back()->with('message', 'Edited document uploaded');
+    }
 
     public function getLetter($filename)
     {

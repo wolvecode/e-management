@@ -1,4 +1,6 @@
 @extends('components.sidebar')
+@section('page', 'Application List')
+
 
 @section('sidebar-item')
     <li>

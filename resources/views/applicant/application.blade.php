@@ -1,4 +1,6 @@
 @extends('components.sidebar')
+@section('page', 'Applications')
+
 
 @section('sidebar-item')
     <li>
@@ -38,13 +40,29 @@
             <span class="ml-2 fonts-semibold text-lg tracking-wide truncate">Application</span>
         </a>
     </li>
+    <li>
+        <a href="https://www.linkedin.com/in/biodun-azeez"
+            class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-[#325AB3] text-white hover:text-[#34A853] border-l-4 border-transparent hover:border-indigo-500 pl-6 py-8"
+            target="_blank">
+            <svg class="ml-4 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                    <path
+                        d="M4 19V6.2C4 5.0799 4 4.51984 4.21799 4.09202C4.40973 3.71569 4.71569 3.40973 5.09202 3.21799C5.51984 3 6.0799 3 7.2 3H16.8C17.9201 3 18.4802 3 18.908 3.21799C19.2843 3.40973 19.5903 3.71569 19.782 4.09202C20 4.51984 20 5.0799 20 6.2V17H6C4.89543 17 4 17.8954 4 19ZM4 19C4 20.1046 4.89543 21 6 21H20M9 7H15M9 11H15M19 17V21"
+                        stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </g>
+            </svg>
+            <span class="ml-2 fonts-semibold text-lg tracking-wide truncate">Course</span>
+        </a>
+    </li>
 @endsection
 
 @section('side')
     <div class="p-5">
         <div class="flex justify-end">
             <div class="flex">
-                <a href="{{ route('viewLetter', 'application/sajYaqlCpehsubRyjo23cITqHIHUsthH5XQN0D30.pdf') }}"
+                <a href="{{ route('viewLetter', 'sample/sajYaqlCpehsubRyjo23cITqHIHUsthH5XQN0D30.pdf') }}"
                     class="text-base mr-5 bg-[#FFEFEF] text-[#A83449] font-medium px-4 py-2 rounded-lg"
                     target="_blank">Download
                     Sample</a>
@@ -53,12 +71,12 @@
             </div>
 
         </div>
-        <dialog id="show" class="p-5 w-1/2 rounded">
-            <button autofocus>Close</button>
+        <dialog id="show" class="p-5 w-3/5 rounded">
+            <button class="mt-2" autofocus>Close</button>
             <div class="mt-4">
                 <form action="/applicant/application" method="post" enctype="multipart/form-data">
                     @csrf
-                    <div class="flex mt-5">
+                    <div class="flex mt-8">
                         <div class="w-1/2 mr-5">
                             <span
                                 class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
@@ -78,21 +96,21 @@
                             </span>
                             <select name="category" id=""
                                 class="h-10 px-3 py-2 bg-white
-                        border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none
-                        focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm 
-                        focus:ring-1">
+                                border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none
+                                focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm 
+                                focus:ring-1">
                                 <option value="human">Human</option>
                                 <option value="animal">Animal</option>
                             </select>
                         </div>
                     </div>
-                    <div class="mt-5">
+                    <div class="mt-8">
                         <textarea class="mt-2" name="description" id="froala-editor">{{ old('description') ? old('description') : 'Edit for research description' }}</textarea>
                         @error('description')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
                     </div>
-                    <div class="mt-2">
+                    <div class="mt-5">
                         <span
                             class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
                             Upload application document
@@ -103,7 +121,7 @@
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
                     </div>
-                    <div class="mt-2">
+                    <div class="mt-5">
                         <span
                             class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
                             Upload supporting document
@@ -114,7 +132,7 @@
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
                     </div>
-                    <div class="flex justify-end mt-5">
+                    <div class="flex justify-end mt-5 mb-2">
                         <button id="another" onclick="myFunction()" type="submit"
                             class="text-white text-sm fonts-medium px-3 py-2 bg-[#2640A1] rounded">Submit</button>
                     </div>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -48,6 +49,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::patch('/application/reject/{application}', [ApplicationController::class, 'reviewerReject']);
         Route::get('/application/{application}', [ApplicationController::class, 'show']);
         Route::get('/application', [ApplicationController::class, 'index']);
+        Route::patch('/letter/{application}', [ApplicationController::class, 'reviewerUpload']);
     });
 
     Route::group(array('prefix' => 'admin'), function () {
@@ -59,12 +61,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::patch('/{user}', [UserController::class, 'patch']);
         Route::get('/reviewer', [UserController::class, 'reviewer']);
         Route::get('/applicant', [UserController::class, 'applicant']);
+        Route::patch('/changepassword/{user}', [UserController::class, 'changePasswordSave']);
         Route::get('/application', [ApplicationController::class, 'index'])->name('filters');
         Route::get('/application/{application}', [ApplicationController::class, 'show']);
         Route::patch('/application/{application}', [ApplicationController::class, 'approve']);
         Route::patch('/application/reject/{application}', [ApplicationController::class, 'reject']);
         Route::get('/add-admin', [UserController::class, 'addAdmin']);
         Route::post('/add-admin', [UserController::class, 'addNewAdmin']);
+        Route::patch('/letter/{application}', [ApplicationController::class, 'uploadApproval']);
         Route::patch('/{application}/{user_id}', [ApplicationController::class, 'assign']);
     });
     Route::post('/logout', [UserController::class, 'logout']);
@@ -99,3 +103,12 @@ Route::group(['middleware' => ['guest']], function () {
 });
 
 Route::patch('/storage/{application}', [ApplicationController::class, 'uploadApproval'])->name('viewLetter');
+
+
+Route::get('/forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forget.password.get');
+
+Route::post('/forget-password', [UserController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
+
+Route::get('/reset-password/{token}', [UserController::class, 'showResetPasswordForm'])->name('reset.password.get');
+
+Route::post('/reset-password', [UserController::class, 'submitResetPasswordForm'])->name('reset.password.post');

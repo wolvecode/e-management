@@ -1,4 +1,5 @@
 @extends('components.sidebar')
+@section('page', 'Dashboard')
 
 @section('sidebar-item')
     <li>
@@ -113,7 +114,11 @@
                     @forelse (App\Models\Application::limit(2)->get() as $application)
                         <div class="w-full rounded-xl px-4 shadow-lg flex items-center mt-4 pb-2">
                             <div class="w-5/12 flex items-center">
-                                <img class="mr-3" width="30px" src="{{ asset('images/profile.png') }}" alt="profile">
+                                <div class="w-8 h-8 rounded-full mr-3">
+                                    <img class="h-full w-full rounded-full"
+                                        src="{{ $application->user->profileLink ? asset('storage/' . $application->user->profileLink) : asset('icons/default-profile.png') }}"
+                                        alt="profile">
+                                </div>
                                 <h4 class="text-sm fonts-semibold">{{ $application->title }}</h4>
                             </div>
                             <div class="w-3/12 text-center border-l px-2">

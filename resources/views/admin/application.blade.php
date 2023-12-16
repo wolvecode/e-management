@@ -1,4 +1,6 @@
 @extends('components.sidebar')
+@section('page', 'Applications')
+
 
 @section('sidebar-item')
     <li>
@@ -82,10 +84,9 @@
 
 @section('side')
     <div class="p-5 overflow-y-auto ">
-        <div class="sele pl-5">
+        {{-- <div class="sele pl-5">
             <p class="">Filter By:</p>
             <form id="myForm" method="GET" class="mt-2">
-                {{-- @csrf --}}
                 <select onchange="handleChange()" name="status" id="mySelect"
                     class="h-10 px-3 py-1
                     border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none
@@ -97,11 +98,11 @@
                     <option value="rejected">Rejected</option>
                 </select>
             </form>
-        </div>
+        </div> --}}
         <div class="max-h-[500px] xl:max-h-[540px] 2xl:max-h-[780px] overflow-y-auto bg-gray-100 rounded-xl px-5 py-3 mt-4">
             <div class="mt-2">
                 <div class="w-full px-4 flex items-center mt-4 py-4">
-                    <div class="w-3/12 flex items-center">
+                    <div class="w-4/12 flex items-center">
                         <img class="mr-3" width="20px" src="{{ asset('icons/list-black.png') }}" alt="list">
                         <h4 class="text-sm fonts-semibold">Application</h4>
                     </div>
@@ -117,64 +118,26 @@
                         <img class="mr-3" width="15px" src="{{ asset('icons/status-black.png') }}" alt="Calendar">
                         <h4 class="text-sm fonts-semibold">Status</h4>
                     </div>
-                    <div class="w-1/12 flex items-center justify-center">
-
-                        <h4 class="text-sm fonts-semibold">Support <br> Document </h4>
-                    </div>
                     <div class="w-2/12 text-center  px-2">
                     </div>
                 </div>
 
                 @forelse ($applications as $application)
-                    <dialog id="{{ $application->id }}" class="p-5 w-1/3 rounded">
-                        <button onclick="closed('<?php echo $application->id; ?>')">Close </button>
-                        <div class="mt-4 max-h-[400px] overflow-y-auto">
-                            <div class="flex justify-between text-gray-500">
-                                <p class="w-1/2">Name</p>
-                                <div class="w-1/2 flex">
-                                    <p class="w-1/2">Applications</p>
-                                    <p class="w-1/2"></p>
-                                </div>
-                            </div>
-
-                            @forelse (App\Models\User::where('role', 'reviewer')->where('specialization', $application->category)->get() as $user)
-                                <form class="mt-2"
-                                    action="/{{ explode('/', $_SERVER['PATH_INFO'])[1] }}/{{ $application->id }}/{{ $user->id }}"
-                                    method="POST">
-                                    @csrf
-                                    @method('PATCH')
-                                    <div class="flex justify-between">
-                                        <p class="w-1/2">{{ $user->name }}</p>
-                                        <div class="w-1/2 flex">
-                                            <p class="w-1/2 text-center">{{ $user->reviewer_application->count() }}</p>
-                                            <button
-                                                class="w-1/2 pointer-events-auto text-sm fonts-medium px-3 py-1.5 bg-[#F1F4F1] text-[#34A853]">
-                                                Assign
-                                            </button>
-                                        </div>
-
-                                    </div>
-                                </form>
-                            @empty
-                                <p class="text-center">No reviewer available</p>
-                            @endforelse
-                        </div>
-                    </dialog>
                     <div class="w-full bg-white rounded-xl px-4 flex items-center mt-4 py-4">
-                        <div class="w-3/12 ">
+                        <div class="w-4/12 ">
                             <p class="truncate pl-5 text-sm fonts-medium">{!! $application->title !!}</p>
                         </div>
                         <div class="w-2/12 text-center border-l px-2">
                             <p class="text-sm fonts-medium">{{ $application->created_at->format('Y-m-d') }}</p>
                         </div>
                         <div class="w-2/12 text-center border-l pl-5">
-                            <button onClick="myFunction('<?php echo $application->id; ?>')"
-                                class="{{ $application->reviewer ? 'pointer-events-none' : 'pointer-events-auto' }} text-sm fonts-medium px-3 py-1.5 
-                            {{ $application->review_status == 'approved'
-                                ? 'bg-[#F1F4F1] text-[#34A853]'
-                                : ($application->reviewer
+                            <button
+                                class="pointer-events-none text-sm fonts-medium px-3 py-1.5 
+                                {{ $application->review_status == 'approved'
                                     ? 'bg-[#F1F4F1] text-[#34A853]'
-                                    : 'bg-[#FFEFEF] text-[#A83449]') }} rounded-lg">
+                                    : ($application->reviewer
+                                        ? 'bg-[#F1F4F1] text-[#34A853]'
+                                        : 'bg-[#FFEFEF] text-[#A83449]') }} rounded-lg">
 
                                 {{ $application->review_status == 'approved' || $application->review_status == 'rejected' ? 'Completed' : ($application->reviewer ? 'Assigned' : 'Not assigned') }}
                             </button>
@@ -189,15 +152,6 @@
                                     : 'bg-[#FFEFEF] text-[#A83449]') }} rounded-lg">
                                 {{ $application->status == 'pending' ? 'Pending' : ($application->status == 'approved' ? 'Approved' : 'Rejected') }}
                             </a>
-                        </div>
-                        <div class="w-1/12 {{ $application->reviewer ?? 'hover-text' }} text-center border-l px-2">
-                            {{-- {{ $application->reviewer ?? 'pointer-events-none' }} --}}
-                            <a href="{{ route('viewLetter', $application->attachment) }}"
-                                class=" mr-2 text-white text-sm fonts-medium px-2 py-1 bg-red-500 rounded"
-                                target="_blank">
-                                View
-                            </a>
-                            <span class="tooltip-text" id="fade">Not asisigned yet</span>
                         </div>
                         <div class="w-2/12 {{ $application->reviewer ?? 'hover-text' }} text-center border-l px-2">
                             <a href="/{{ auth()->user()->role == 'super_admin' ? 'admin' : auth()->user()->role }}/application/{{ $application->id }}"
@@ -275,18 +229,6 @@
             url.search = search_params.toString();
             window.history.replaceState("stateObj",
                 "new page", url);
-        }
-    </script>
-    <script>
-        // "Show the dialog" button opens the dialog modal
-        function myFunction(id) {
-            const dialog = document.getElementById(id);
-            dialog.showModal();
-        }
-        //close modal
-        function closed(id) {
-            const dialog = document.getElementById(id);
-            dialog.close();
         }
     </script>
     <script>

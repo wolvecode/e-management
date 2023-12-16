@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('attachment')->nullable()->default(null);
             $table->string('supporting_document')->nullable()->default(null);
             $table->string('approval_letter')->nullable()->default(null);
+            $table->string('edited_attachment')->nullable()->default(null);
             $table->text('description')->nullable();
             $table->enum('review_status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->timestamps();

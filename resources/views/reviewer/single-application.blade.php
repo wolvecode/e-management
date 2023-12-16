@@ -1,8 +1,9 @@
 @extends('components.sidebar')
+@section('page', 'Application')
 
 @section('sidebar-item')
     <li>
-        <a href="#"
+        <a href="/reviewer/{{ auth()->user()->id }}/edit"
             class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-[#325AB3] text-white hover:text-[#34A853] border-l-4 border-transparent hover:border-indigo-500 pl-6 py-8">
             <span class="inline-flex justify-center items-center ml-4">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
