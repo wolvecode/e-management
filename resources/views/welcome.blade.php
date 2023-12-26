@@ -32,9 +32,18 @@
         </div>
     </div>
     <div class="flex justify-center justify-around mt-14">
-        <div class="grid justify-items-center">
+        {{-- <div class="grid justify-items-center">
             <img width="70" src="{{ asset('images/consortium.png') }}" alt="consortium">
             <p class="text-center fonts-semibold text-xl mt-2">Consortium</p>
+        </div> --}}
+
+        <div class="hover-container">
+            <img width="70" class="hover-image" src="{{ asset('images/consortium.png') }}" alt="consortium">
+            <span class="hover-text text-center fonts-semibold text-xl mt-2">Consortium</span>
+            <div class="links-container">
+                <a href="https://oauife.edu.ng" target="_blank">oauife</a>
+                <a href="https://unilag.edu.ng" target="_blank">Ununilag</a>
+            </div>
         </div>
         <div class="grid justify-items-center">
             <img width="70" src="{{ asset('images/lab.png') }}" alt="consortium">
@@ -174,3 +183,50 @@
     </div>
 
 @endsection
+
+@push('css')
+    <style>
+        .hover-container {
+            position: relative;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .hover-image {
+            display: block;
+            margin: 0 auto;
+        }
+
+        .hover-text {
+            cursor: pointer;
+            /* color: blue; */
+            display: block;
+            /* margin-top: 10px; */
+            /* Adjust the distance between the image and text */
+        }
+
+        .links-container {
+            position: absolute;
+            top: 20px;
+            /* Adjust the distance from the text */
+            right: 0;
+            /* Align completely to the right */
+            display: none;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border: 1px solid #ddd;
+            z-index: 1;
+        }
+
+        .links-container a {
+            display: block;
+            color: blue;
+            padding: 8px;
+            text-decoration: none;
+        }
+
+        .hover-container:hover .links-container {
+            display: block;
+        }
+    </style>
+@endpush

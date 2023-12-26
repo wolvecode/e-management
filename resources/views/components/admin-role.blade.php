@@ -12,7 +12,7 @@
 
             @forelse (App\Models\User::where('role', 'reviewer')->where('specialization', $application->category)->get() as $user)
                 <form class="mt-2"
-                    action="/{{ explode('/', $_SERVER['PATH_INFO'])[1] }}/{{ $application->id }}/{{ $user->id }}"
+                    action="/{{ explode('/', $_SERVER['REQUEST_URI'])[1] }}/{{ $application->id }}/{{ $user->id }}"
                     method="POST">
                     @csrf
                     @method('PATCH')
@@ -78,7 +78,7 @@
                             Upload completed letter
                         </p>
                     </button>
-                    <a href="{{ route('viewLetter', $application->edited_attachment ?? '') }}"
+                    <a href="{{ asset('storage/' . $application->edited_attachment ?? '') }}"
                         class="bg-[#F1F4F1]  flex items-center px-6 py-1 text-[#1E1E1E] rounded-lg" target="_blank">
                         <img class="mr-2" src="{{ asset('icons/cloud.png') }}" alt="download">
                         <p class="">Preview reviewed letter</p>
@@ -109,7 +109,7 @@
                 class="text-base px-6 py-2 mt-5 mr-4 rounded-md bg-[#FFEFEF] text-[#A83449]" type="submit">
                 Assign to reviewer
             </button>
-            <a href="{{ route('viewLetter', $application->attachment ?? '') }}"
+            <a href="{{ asset('storage/' . $application->attachment ?? '') }}"
                 class="bg-[#F1F4F1] flex items-center px-6 py-2 text-[#1E1E1E] rounded-lg mr-4 mt-5" target="_blank">
                 <img class="mr-2" src="{{ asset('icons/cloud.png') }}" alt="download">
                 <p class="">Application document</p>
@@ -122,7 +122,7 @@
                 class="text-base px-6 py-2 mt-5 mr-4 rounded-md bg-[#FFEFEF] text-[#A83449]" type="submit">
                 Assign to reviewer
             </button>
-            <a href="{{ route('viewLetter', $application->attachment ?? '') }}"
+            <a href="{{ asset('storage/' . $application->attachment ?? '') }}"
                 class="bg-[#F1F4F1] flex items-center px-6 py-2 text-[#1E1E1E] rounded-lg mr-4 mt-5" target="_blank">
                 <img class="mr-2" src="{{ asset('icons/cloud.png') }}" alt="download">
                 <p class="">Application document</p>

@@ -60,7 +60,8 @@ class UserController extends Controller
 
         //Hash Password
         $formFields['password'] = bcrypt($formFields['password']);
-        $path = explode('/', $_SERVER['PATH_INFO']);
+        $path = explode('/', $_SERVER['REQUEST_URI']);
+        dd($path);
         if ($path[1] == 'reviewer') {
             $formFields['role'] = 'reviewer';
         } else {

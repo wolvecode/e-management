@@ -34,7 +34,7 @@
                     <img class="mr-2" width="16" src="{{ asset('icons/filled-upload.png') }}" alt="download">
                     <p class="">Upload edited document</p>
                 </button>
-                <a href="{{ route('viewLetter', $application->attachment ?? '') }}"
+                <a href="{{ asset('storage/' . $application->attachment ?? '') }}"
                     class="bg-[#F1F4F1] flex items-center px-6 py-1 text-[#1E1E1E] rounded-lg mr-4" target="_blank">
                     <img class="mr-2" width="16" src="{{ asset('icons/cloud.png') }}" alt="download">
                     <p class="">Preview Application Document</p>

@@ -62,7 +62,7 @@
     <div class="p-5">
         <div class="flex justify-end">
             <div class="flex">
-                <a href="{{ route('viewLetter', 'sample/sajYaqlCpehsubRyjo23cITqHIHUsthH5XQN0D30.pdf') }}"
+                <a href="{{ asset('storage/' . 'sample/sajYaqlCpehsubRyjo23cITqHIHUsthH5XQN0D30.pdf') }}"
                     class="text-base mr-5 bg-[#FFEFEF] text-[#A83449] font-medium px-4 py-2 rounded-lg"
                     target="_blank">Download
                     Sample</a>

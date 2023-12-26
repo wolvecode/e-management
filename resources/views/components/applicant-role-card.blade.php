@@ -20,7 +20,7 @@
             {{ $application->category }} Subject
         </button>
         <div class="flex justify-center mt-5">
-            <a href="{{ route('viewLetter', $application->approval_letter ?? '') }}"
+            <a href="{{ asset('storage/' . $application->approval_letter ?? '') }}"
                 class="bg-[#F1F4F1] flex items-center px-6 py-1 text-[#1E1E1E] rounded-lg {{ $application->status == 'pending' ? 'pointer-events-none' : 'pointer-events-auto' }} mr-4"
                 target="_blank">
                 <img class="mr-2" src="{{ asset('icons/cloud.png') }}" alt="download">
