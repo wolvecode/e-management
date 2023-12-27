@@ -105,8 +105,11 @@
                         </div>
                     </div>
                     <div class="mt-8">
-                        <textarea class="mt-2" name="description" id="froala-editor">{{ old('description') ? old('description') : 'Edit for research description' }}</textarea>
-                        @error('description')
+                        <textarea
+                            class="mt-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
+                            name="description" id="" cols="30" rows="8">
+                        {{ old('description') ? old('description') : 'Edit for research description' }}
+                    </textarea> @error('description')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
                     </div>
