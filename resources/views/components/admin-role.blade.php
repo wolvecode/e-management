@@ -106,11 +106,16 @@
     @if (!$application->reviewer)
         <div class="flex justify-center border-t-2">
             <button onClick="myFunction('<?php echo $application->id; ?>')"
-                class="text-base px-6 py-2 mt-5 mr-4 rounded-md bg-[#FFEFEF] text-[#A83449]" type="submit">
+                class="text-base px-5 py-2 mt-5 mr-4 rounded-md bg-[#FFEFEF] text-[#A83449]" type="submit">
                 Assign to reviewer
             </button>
+            <a href="{{ asset('storage/' . $application->supporting_document ?? '') }}"
+                class="bg-[#F1F4F1] flex items-center px-5 py-2 text-[#1E1E1E] rounded-lg mr-4 mt-5" target="_blank">
+                <img class="mr-2" src="{{ asset('icons/cloud.png') }}" alt="download">
+                <p class="">Supporting document</p>
+            </a>
             <a href="{{ asset('storage/' . $application->attachment ?? '') }}"
-                class="bg-[#F1F4F1] flex items-center px-6 py-2 text-[#1E1E1E] rounded-lg mr-4 mt-5" target="_blank">
+                class="bg-[#F1F4F1] flex items-center px-5 py-2 text-[#1E1E1E] rounded-lg mr-4 mt-5" target="_blank">
                 <img class="mr-2" src="{{ asset('icons/cloud.png') }}" alt="download">
                 <p class="">Application document</p>
             </a>

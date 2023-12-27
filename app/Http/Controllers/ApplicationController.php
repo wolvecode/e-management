@@ -51,8 +51,9 @@ class ApplicationController extends Controller
         ]);
 
 
-        if ($request->hasFile('attachment')) {
+        if ($request->hasFile('attachment') || $request->hasFile('attachment')) {
             $formFields['attachment'] = $request->file('attachment')->store('application', 'public');
+            $formFields['supporting_document'] = $request->file('supporting_document')->store('supporting-document', 'public');
         }
 
 
