@@ -3,7 +3,7 @@
 
 <div class="p-5">
     <div class="2xl:max-h-[780px] h-[600px] overflow-y-auto bg-gray-100 rounded-xl p-10 mt-5">
-        <form action="/{{ explode('/', $_SERVER['PATH_INFO'])[1] }}/{{ $user->id }}" method="post"
+        <form action="/{{ explode('/', $_SERVER['REQUEST_URI'])[1] }}/{{ $user->id }}" method="post"
             enctype="multipart/form-data">
             @csrf
             @method('PATCH')
@@ -150,8 +150,8 @@
                 <button class="text-white text-lg bg-[#2640A1] px-8 py-3 rounded-md" type="submit">Update</button>
             </div>
         </form>
-        <form action="/{{ explode('/', $_SERVER['PATH_INFO'])[1] }}/changepassword/{{ $user->id }}" method="post"
-            enctype="multipart/form-data">
+        <form action="/{{ explode('/', $_SERVER['REQUEST_URI'])[1] }}/changepassword/{{ $user->id }}"
+            method="post" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
             <div class="flex bg-white rounded-lg p-8 mt-6">

@@ -34,6 +34,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::patch('/{user}', [UserController::class, 'patch']);
         Route::get('/application', [ApplicationController::class, 'index']);
         Route::get('/application/{application}', [ApplicationController::class, 'show']);
+        Route::patch('/changepassword/{user}', [UserController::class, 'changePasswordSave']);
         Route::post('/application', [ApplicationController::class, 'store']);
     });
 
@@ -50,6 +51,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/application/{application}', [ApplicationController::class, 'show']);
         Route::get('/application', [ApplicationController::class, 'index']);
         Route::patch('/letter/{application}', [ApplicationController::class, 'reviewerUpload']);
+        Route::patch('/changepassword/{user}', [UserController::class, 'changePasswordSave']);
     });
 
     Route::group(array('prefix' => 'admin'), function () {
