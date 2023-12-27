@@ -62,10 +62,18 @@
     <div class="p-5">
         <div class="flex justify-end">
             <div class="flex">
-                <a href="{{ asset('storage/' . 'sample/sajYaqlCpehsubRyjo23cITqHIHUsthH5XQN0D30.pdf') }}"
-                    class="text-base mr-5 bg-[#FFEFEF] text-[#A83449] font-medium px-4 py-2 rounded-lg"
-                    target="_blank">Download
-                    Sample</a>
+                @if (auth()->user()->specialization == 'animal')
+                    <a href="{{ asset('storage/' . 'sample/sajYaqlCpehsubRyjo23cITqHIHUsthH5XQN0D30.doc') }}"
+                        class="text-base mr-5 bg-[#FFEFEF] text-[#A83449] font-medium px-4 py-2 rounded-lg"
+                        target="_blank">Download Sample
+                    </a>
+                @else
+                    <a href="{{ asset('storage/' . 'sample/human.pdf') }}"
+                        class="text-base mr-5 bg-[#FFEFEF] text-[#A83449] font-medium px-4 py-2 rounded-lg"
+                        target="_blank">Download Sample
+                    </a>
+                @endif
+
                 <button id="dialog" class="text-base text-white bg-[#A83449] font-medium px-4 py-2 rounded-lg">Apply
                     Now</button>
             </div>
