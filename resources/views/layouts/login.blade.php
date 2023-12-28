@@ -149,13 +149,13 @@
                                 class="bg-[#304CB0] text-[#FFF] fonts-medium text-2xl px-6 py-2 rounded">Sign Up</button>
                         </div>
 
-                        <div class="flex justify-center mt-5">
+                        {{-- <div class="flex justify-center mt-5">
                             <button class="mr-12"><img width="10" src="{{ asset('icons/fb-blue.png') }}"
                                     alt=""></button>
                             <button class="mr-12"><img width="20" src="{{ asset('icons/apple.png') }}"
                                     alt=""></button>
                             <button><img width="22" src="{{ asset('icons/google.png') }}" alt=""></button>
-                        </div>
+                        </div> --}}
                     </div>
                 </form>
             </div>
