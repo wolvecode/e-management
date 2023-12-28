@@ -59,9 +59,14 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCommentRequest $request, Comment $comment)
+    public function update(Request $request, Comment $comment)
     {
-        //
+        $formFields = $request->validate([
+            'comment' => ['required', 'min:10'],
+        ]);
+
+        $comment->update($formFields);
+        return back()->with('message', 'Comment updated');
     }
 
     /**

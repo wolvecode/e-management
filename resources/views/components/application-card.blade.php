@@ -1,4 +1,7 @@
 @props(['application'])
+@php
+    $commentTag = false;
+@endphp
 
 
 <div class="justify-center bg-white rounded-xl px-5 py-3 mb-5">
@@ -137,11 +140,13 @@
             </div>
             @if (auth()->user()->role == 'admin' || auth()->user()->role == 'super_admin')
                 <div class="md:w-64 lg:w-70 bg-white rounded-xl md:p-4 lg:p-6 mt-5">
-                    <form method="POST" action="/reviewer/comment/{{ $application->id }}">
-                        @csrf
-                        <span class="px-2 py-1 text-xs text-[#2640A1] bg-[#F3F4FA] rounded-xl">Leave Comment</span>
-                        <p class="text-xs mt-2">{{ $application->comment ? $application->comment->comment : '' }}</p>
-                        @if (!$application->comment || strlen($application->comment->comment) === 0)
+                    @if (!$application->comment || strlen($application->comment->comment) === 0)
+                        <form method="POST" action="/reviewer/comment/{{ $application->id }}">
+                            @csrf
+                            <span class="px-2 py-1 text-xs text-[#2640A1] bg-[#F3F4FA] rounded-xl">Leave Comment</span>
+                            <p class="text-xs mt-2">{{ $application->comment ? $application->comment->comment : '' }}
+                            </p>
+
                             <input type="text" name="comment"
                                 class="h-8 mt-2 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-lg sm:text-sm focus:ring-1"
                                 placeholder="Leave a comment" />
@@ -152,8 +157,28 @@
                                 <button class="text-white text-xs bg-[#2640A1] px-4 py-1 rounded-md"
                                     type="submit">Submit</button>
                             </div>
-                        @endif
-                    </form>
+                        </form>
+                    @endif
+                    @if ($application->comment && strlen($application->comment->comment) > 2)
+                        <form method="POST" action="/reviewer/comment/{{ $application->comment->id }}">
+                            @method('PATCH')
+                            @csrf
+                            <span class="px-2 py-1 text-xs text-[#2640A1] bg-[#F3F4FA] rounded-xl">Leave Comment</span>
+                            <p class="text-xs mt-2">{{ $application->comment ? $application->comment->comment : '' }}
+                            </p>
+
+                            <input type="text" name="comment"
+                                class="h-8 mt-2 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-lg sm:text-sm focus:ring-1"
+                                placeholder="Leave a comment" />
+                            @error('comment')
+                                <p class="text-red-500 text-xs">{{ $message }}</p>
+                            @enderror
+                            <div class="flex justify-end mt-2">
+                                <button class="text-white text-xs bg-[#2640A1] px-4 py-1 rounded-md"
+                                    type="submit">Update</button>
+                            </div>
+                        </form>
+                    @endif
                 </div>
             @endif
         </div>

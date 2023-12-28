@@ -44,6 +44,7 @@ Route::group(['middleware' => ['auth']], function () {
         });
         //USER
         Route::post('/comment/{id}', [CommentController::class, 'store']);
+        Route::patch('/comment/{comment}', [CommentController::class, 'update']);
         Route::get('/{user}/edit', [UserController::class, 'edit']);
         Route::patch('/{user}', [UserController::class, 'patch']);
         Route::patch('/application/{application}', [ApplicationController::class, 'reviewerApprove']);
