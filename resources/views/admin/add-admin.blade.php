@@ -125,14 +125,13 @@
                             @enderror
                         </label>
                     </div>
-                    <div class="mt-5">
-                        <label class="w-full">
+                    <div class="flex mt-5">
+                        <label class="w-full mr-3">
                             <span
                                 class="after:content-['*'] after:ml-0.5 after:text-red-500  text-sm font-medium text-slate-700">
                                 Research Type
                             </span>
-
-                            <select name="specialization" id=""
+                            <select name="category" id=""
                                 class="h-12 px-3 py-2 bg-white
                             border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none
                             focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm 
@@ -140,7 +139,25 @@
                                 <option value="human">Human</option>
                                 <option value="animal">Animal</option>
                             </select>
-                            @error('specialization')
+                            @error('category')
+                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
+                        </label>
+                        <label class="w-full">
+                            <span
+                                class="after:content-['*'] after:ml-0.5 after:text-red-500  text-sm font-medium text-slate-700">
+                                Institution
+                            </span>
+
+                            <select name="institution" id=""
+                                class="h-12 px-3 py-2 bg-white
+                            border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none
+                            focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm 
+                            focus:ring-1">
+                                <option value="oau">OAU</option>
+                                <option value="unilag">UNILAG</option>
+                            </select>
+                            @error('institution')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
                         </label>

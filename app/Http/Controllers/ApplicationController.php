@@ -22,12 +22,20 @@ class ApplicationController extends Controller
 
         $user = auth()->user()->role == 'super_admin' ? 'admin' : auth()->user()->role;
         $reviewer = User::where('role', 'reviewer')->get();
-        $applications = Application::latest()->filter(request(['status', 'search']))->simplePaginate(6);
+
+        // $applications = Application::latest()->filter(request(['status', 'search']))->user->where('instituition', auth()->user()->instituition)->simplePaginate(6);
+        $applications = Application::join('users', 'applications.applicant_id', '=', 'users.id')
+            ->where('users.institution', '=', auth()->user()->instituition)
+            ->where('users.category', '=', auth()->user()->category)
+            ->latest('applications.created_at')
+            ->filter(request(['status', 'search']))
+            ->simplePaginate(6);
         return view("{$user}.application", [
             'applications' =>  $applications,
             'users' => $reviewer
         ]);
     }
+    // latest()->filter(request(['status', 'search']))->simplePaginate(6);
 
     /**
      * Show the form for creating a new resource.

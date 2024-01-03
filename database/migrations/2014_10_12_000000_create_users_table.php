@@ -18,6 +18,7 @@ return new class extends Migration
             $table->enum('role', ['applicant', 'admin', 'super_admin', 'reviewer']);
             $table->string('profileLink')->nullable();
             $table->string('onboarding_id')->nullable();
+            $table->enum('category', ['animal', 'human']);
             $table->string('institution')->nullable();
             $table->string('faculty')->nullable();
             $table->string('contact')->nullable();

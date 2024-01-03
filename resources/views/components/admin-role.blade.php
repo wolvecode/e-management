@@ -10,7 +10,7 @@
                 </div>
             </div>
 
-            @forelse (App\Models\User::where('role', 'reviewer')->where('specialization', $application->category)->get() as $user)
+            @forelse (App\Models\User::where('role', 'reviewer')->where('category', $application->category)->where('institution',$application->institution)->get() as $user)
                 <form class="mt-2"
                     action="/{{ explode('/', $_SERVER['REQUEST_URI'])[1] }}/{{ $application->id }}/{{ $user->id }}"
                     method="POST">
