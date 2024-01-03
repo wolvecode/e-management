@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Reviewer;
 use App\Models\Application;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\File;
@@ -66,7 +67,32 @@ class ApplicationController extends Controller
 
 
         $formFields['applicant_id'] = auth()->user()->id;
-        Application::create($formFields);
+        $application = Application::create($formFields);
+
+        if ($application) {
+            function generateUniqueID($schoolAbbreviation, $category, $applicationID)
+            {
+                // Ensure that the input parameters are valid
+                if (empty($schoolAbbreviation) || empty($category) || empty($applicationID)) {
+                    return null; // or handle the error as needed
+                }
+
+                // Trim and sanitize input parameters if necessary
+                $schoolAbbreviation = strtoupper(trim($schoolAbbreviation));
+                $category = strtoupper(trim($category));
+                $applicationID = intval($applicationID);
+
+                // Generate the unique ID
+                $uniqueID = "{$schoolAbbreviation}-{$category[0]}-{$applicationID}";
+
+                return $uniqueID;
+            }
+            $generatedID = generateUniqueID($application->user->institution,  $application->category,  $application->id);
+            $b = Application::where('id', $application->id)
+                ->update(['app_id' => $generatedID]);
+        }
+
+
 
         return back()->with('message', 'Application created');
     }

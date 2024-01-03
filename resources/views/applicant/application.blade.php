@@ -154,10 +154,16 @@
             {{-- xl:max-h-[640px] 2xl:max-h-[780px]  --}}
             <div class="overflow-y-auto mt-2">
                 <div class="w-full px-4 flex items-center mt-4 py-4">
-                    <div class="w-4/12 flex items-center">
+                    <div
+                        class="{{ auth()->user()->role == 'admin' || auth()->user()->role == 'super_admin' ? 'w-2/12' : 'w-4/12' }} flex items-center">
                         <img class="mr-3" width="20px" src="{{ asset('icons/list-black.png') }}" alt="list">
                         <h4 class="text-sm fonts-semibold">Application</h4>
                     </div>
+                    @if (auth()->user()->role == 'admin' || auth()->user()->role == 'super_admin')
+                        <div class="{{ auth()->user()->role == 'admin' ? 'w-2/12' : 'w-4/12' }} flex items-center">
+                            <h4 class="text-sm fonts-semibold">App NO:</h4>
+                        </div>
+                    @endif
                     <div class="w-2/12 flex items-center justify-center">
                         <img class="mr-3" width="15px" src="{{ asset('icons/calendar.png') }}" alt="Calendar">
                         <h4 class="text-sm fonts-semibold">Date Submitted</h4>

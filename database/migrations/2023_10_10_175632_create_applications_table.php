@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
+            $table->string('app_id')->nullable()->unique();
             $table->foreignId('applicant_id')->constrained('users')->onDelete('cascade');
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->foreignId('assigned_reviewer_id')->nullable()->default(null)->constrained('users');
