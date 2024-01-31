@@ -21,17 +21,18 @@ class ApplicationController extends Controller
     public function index(Request $request)
     {
 
-        $user = auth()->user()->role == 'super_admin' ? 'admin' : auth()->user()->role;
+        $userCheck = auth()->user()->role == 'super_admin';
+        $userRole = auth()->user()->role == 'super_admin' ? 'admin' : auth()->user()->role;
         $reviewer = User::where('role', 'reviewer')->get();
 
         // $applications = Application::latest()->filter(request(['status', 'search']))->user->where('instituition', auth()->user()->instituition)->simplePaginate(6);
-        $applications = Application::join('users', 'applications.applicant_id', '=', 'users.id')
+        $applications = $userCheck  ? Application::latest()->filter(request(['status', 'search']))->simplePaginate(6) : Application::join('users', 'applications.applicant_id', '=', 'users.id')
             ->where('users.institution', '=', auth()->user()->instituition)
             ->where('users.category', '=', auth()->user()->category)
             ->latest('applications.created_at')
             ->filter(request(['status', 'search']))
             ->simplePaginate(6);
-        return view("{$user}.application", [
+        return view("{$userRole}.application", [
             'applications' =>  $applications,
             'users' => $reviewer
         ]);

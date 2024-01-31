@@ -2,14 +2,9 @@
 
 
 <div class="w-full bg-white rounded-xl px-4 flex items-center mt-4 py-4">
-    <div class="{{ auth()->user()->role == 'admin' || auth()->user()->role == 'super_admin' ? 'w-2/12' : 'w-4/12' }}">
+    <div class="w-4/12">
         <p class="truncate pl-5 text-sm fonts-medium">{!! $application->title !!}</p>
     </div>
-    @if (auth()->user()->role == 'admin' || auth()->user()->role == 'super_admin')
-        <div class="{{ auth()->user()->role == 'admin' ? 'w-2/12' : 'w-4/12' }}">
-            <p class="truncate pl-5 text-sm fonts-medium">{{ $application->app_id }}</p>
-        </div>
-    @endif
     <div class="w-2/12 text-center border-l px-2">
         <p class="text-sm fonts-medium">{{ $application->created_at->format('Y-m-d') }}</p>
     </div>

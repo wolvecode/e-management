@@ -102,7 +102,10 @@
         <div class="max-h-[500px] xl:max-h-[540px] 2xl:max-h-[780px] overflow-y-auto bg-gray-100 rounded-xl px-5 py-3 mt-4">
             <div class="mt-2">
                 <div class="w-full px-4 flex items-center mt-4 py-4">
-                    <div class="w-4/12 flex items-center">
+                    <div class="w-2/12 flex items-center">
+                        <h4 class="text-sm fonts-semibold">App ID</h4>
+                    </div>
+                    <div class="w-2/12 flex items-center">
                         <img class="mr-3" width="20px" src="{{ asset('icons/list-black.png') }}" alt="list">
                         <h4 class="text-sm fonts-semibold">Application</h4>
                     </div>
@@ -124,7 +127,10 @@
 
                 @forelse ($applications as $application)
                     <div class="w-full bg-white rounded-xl px-4 flex items-center mt-4 py-4">
-                        <div class="w-4/12 ">
+                        <div class="w-2/12">
+                            <p class="text-sm fonts-medium">{{ $application->app_id }}</p>
+                        </div>
+                        <div class="w-2/12">
                             <p class="truncate pl-5 text-sm fonts-medium">{!! $application->title !!}</p>
                         </div>
                         <div class="w-2/12 text-center border-l px-2">
