@@ -164,7 +164,7 @@
                                 <a href="/applicant/application/{{ $application->id }}"
                                     class="text-white text-sm fonts-medium px-2 py-1 bg-[#2640A1] rounded">See
                                     details</a>
-                                <span class="tooltip-text" id="fade">Not asisigned yet or in review</span>
+                                <span class="tooltip-text" id="fade">Not asisigned</span>
                             </div>
                         </div>
                     @empty
@@ -180,15 +180,15 @@
     <style>
         .tooltip-text {
             position: absolute;
-            top: -30px;
+            top: -15px;
             left: 40%;
             z-index: 2;
             color: white;
             font-size: 12px;
             background-color: #192733;
-            width: 120px;
-            border-radius: 10px;
-            padding: 5px;
+            width: 110px;
+            border-radius: 8px;
+            padding: 3px;
         }
 
         #fade {
