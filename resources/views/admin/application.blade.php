@@ -134,7 +134,7 @@
                             <p class="truncate pl-5 text-sm fonts-medium">{!! $application->title !!}</p>
                         </div>
                         <div class="w-2/12 text-center border-l px-2">
-                            <p class="text-sm fonts-medium">{{ $application->user->name }}</p>
+                            <p class="text-sm fonts-medium">{{ $application->created_at->format('Y-m-d') }}</p>
                         </div>
                         <div class="w-2/12 text-center border-l pl-5">
                             <button
