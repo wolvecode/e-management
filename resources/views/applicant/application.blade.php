@@ -62,18 +62,31 @@
     <div class="p-5">
         <div class="flex justify-end">
             <div class="flex">
-                @if (auth()->user()->specialization == 'animal')
-                    <a href="{{ asset('storage/' . 'sample/sajYaqlCpehsubRyjo23cITqHIHUsthH5XQN0D30.doc') }}"
-                        class="text-base mr-5 bg-[#FFEFEF] text-[#A83449] font-medium px-4 py-2 rounded-lg"
-                        target="_blank">Download Sample
-                    </a>
+                @if (auth()->user()->institution == 'unilag')
+                    @if (auth()->user()->category == 'animal')
+                        <a href="{{ asset('storage/' . 'sample/unilag_animal.docx') }}"
+                            class="text-base mr-5 bg-[#FFEFEF] text-[#A83449] font-medium px-4 py-2 rounded-lg"
+                            target="_blank">Download Sample
+                        </a>
+                    @else
+                        <a href="{{ asset('storage/' . 'sample/unilag_human.doc') }}"
+                            class="text-base mr-5 bg-[#FFEFEF] text-[#A83449] font-medium px-4 py-2 rounded-lg"
+                            target="_blank">Download Sample
+                        </a>
+                    @endif
                 @else
-                    <a href="{{ asset('storage/' . 'sample/human.pdf') }}"
-                        class="text-base mr-5 bg-[#FFEFEF] text-[#A83449] font-medium px-4 py-2 rounded-lg"
-                        target="_blank">Download Sample
-                    </a>
+                    @if (auth()->user()->category == 'animal')
+                        <a href="{{ asset('storage/' . 'sample/oau_animal.doc') }}"
+                            class="text-base mr-5 bg-[#FFEFEF] text-[#A83449] font-medium px-4 py-2 rounded-lg"
+                            target="_blank">Download Sample
+                        </a>
+                    @else
+                        <a href="#"
+                            class="text-base mr-5 bg-[#FFEFEF] text-[#A83449] font-medium px-4 py-2 rounded-lg"
+                            target="_blank">Download Sample
+                        </a>
+                    @endif
                 @endif
-
                 <button id="dialog" class="text-base text-white bg-[#A83449] font-medium px-4 py-2 rounded-lg">Apply
                     Now</button>
             </div>
