@@ -41,7 +41,7 @@
         </a>
     </li>
     <li>
-        <a href="https://www.linkedin.com/in/biodun-azeez"
+        <a href="#"
             class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-[#325AB3] text-white hover:text-[#34A853] border-l-4 border-transparent hover:border-indigo-500 pl-6 py-8"
             target="_blank">
             <svg class="ml-4 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -58,7 +58,7 @@
     </li>
     @if (auth()->user()->institution == 'unilag')
         <li>
-            <a href="https://www.linkedin.com/in/biodun-azeez"
+            <a href="#"
                 class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-[#325AB3] text-white hover:text-[#34A853] border-l-4 border-transparent hover:border-indigo-500 pl-6 py-8"
                 target="_blank">
                 <svg class="ml-4 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
