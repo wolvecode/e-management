@@ -174,7 +174,6 @@
     </style>
 @endpush
 
-
 @push('scripts')
     <script>
         function handleClick(link) {

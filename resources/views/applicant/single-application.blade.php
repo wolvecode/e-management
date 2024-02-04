@@ -41,9 +41,8 @@
         </a>
     </li>
     <li>
-        <a href="#"
-            class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-[#325AB3] text-white hover:text-[#34A853] border-l-4 border-transparent hover:border-indigo-500 pl-6 py-8"
-            target="_blank">
+        <span
+            class="relative hover-link flex flex-row items-center h-11 focus:outline-none hover:bg-[#325AB3] text-white hover:text-[#34A853] border-l-4 border-transparent hover:border-indigo-500 pl-6 py-8">
             <svg class="ml-4 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -54,7 +53,40 @@
                 </g>
             </svg>
             <span class="ml-2 fonts-semibold text-lg tracking-wide truncate">Course</span>
-        </a>
+            @if (auth()->user()->institution == 'unilag')
+                <ul class="tooltip-link text-center py-4 space-y-3" id="fade">
+                    <li>
+                        <span onclick="handleClick('https://about.citiprogram.org/')"
+                            class="cursor-pointer text-[#2640A1]">Visit
+                            CITI</span>
+                    </li>
+                    <li>
+                        <span onclick="handleClick('https://elearning.trree.org/')"
+                            class="cursor-pointer text-[#2640A1]">Visit
+                            TRREE</span>
+                    </li>
+                </ul>
+            @else
+                <ul class="tooltip-link text-center py-4 space-y-2" id="fade">
+                    <li>
+                        <span onclick="handleClick('{{ asset('storage/' . 'sample/animal_housing.pdf') }}')"
+                            class="cursor-pointer text-[#2640A1]">Animal Housing
+                        </span>
+                    </li>
+                    <li>
+                        <span onclick="handleClick('{{ asset('storage/' . 'sample/sample_collection.pdf') }}')"
+                            class="cursor-pointer text-[#2640A1]">Sample Collection
+                        </span>
+                    </li>
+                    <li>
+                        <span onclick="handleClick('{{ asset('storage/' . 'sample/training_manual.pdf') }}')"
+                            class="cursor-pointer text-[#2640A1]">Training Manual
+                        </span>
+                    </li>
+                </ul>
+            @endif
+
+        </span>
     </li>
     @if (auth()->user()->institution == 'unilag')
         <li>
@@ -74,6 +106,34 @@
             </a>
         </li>
     @endif
+    @if (auth()->user()->institution == 'oau')
+        <li>
+            <span
+                class="relative hover-link flex flex-row items-center h-11 focus:outline-none hover:bg-[#325AB3] text-white hover:text-[#34A853] border-l-4 border-transparent hover:border-indigo-500 pl-6 py-8">
+                <svg class="ml-4 w-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path
+                            d="M4 19V6.2C4 5.0799 4 4.51984 4.21799 4.09202C4.40973 3.71569 4.71569 3.40973 5.09202 3.21799C5.51984 3 6.0799 3 7.2 3H16.8C17.9201 3 18.4802 3 18.908 3.21799C19.2843 3.40973 19.5903 3.71569 19.782 4.09202C20 4.51984 20 5.0799 20 6.2V17H6C4.89543 17 4 17.8954 4 19ZM4 19C4 20.1046 4.89543 21 6 21H20M9 7H15M9 11H15M19 17V21"
+                            stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </g>
+                </svg>
+                <span class="ml-2 fonts-semibold text-lg tracking-wide truncate">E-Learning</span>
+
+                <ul class="tooltip-link text-center py-4 space-y-3" id="fade">
+                    <li>
+                        <span onclick="handleClick('https://about.citiprogram.org/')"
+                            class="cursor-pointer text-[#2640A1]">Visit CITI</span>
+                    </li>
+                    <li>
+                        <span onclick="handleClick('https://anzccart.adelaide.edu.au/compass')"
+                            class="cursor-pointer text-[#2640A1]">Visit Compass</span>
+                    </li>
+                </ul>
+            </span>
+        </li>
+    @endif
 @endsection
 
 @section('side')
@@ -83,3 +143,46 @@
         </div>
     </div>
 @endsection
+
+
+@push('css')
+    <style>
+        .tooltip-link {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            z-index: 2;
+            color: #192733;
+            font-size: 12px;
+            background-color: white;
+            width: 110px;
+            border-radius: 8px;
+            padding: 3px;
+        }
+
+        #fade {
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .hover-link:hover #fade {
+            opacity: 1;
+        }
+
+        .hover-link:hover #delay {
+            opacity: 1;
+        }
+
+        .hover-link {
+            position: relative;
+        }
+    </style>
+@endpush
+
+@push('scripts')
+    <script>
+        function handleClick(link) {
+            window.open(link, '_blank');
+        }
+    </script>
+@endpush
