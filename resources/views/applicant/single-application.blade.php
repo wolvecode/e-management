@@ -69,6 +69,10 @@
             @else
                 <ul class="tooltip-link text-center py-4 space-y-2" id="fade">
                     <li>
+                        <span onclick="handleClick('#')" class="cursor-pointer text-[#2640A1]">Take Test
+                        </span>
+                    </li>
+                    <li>
                         <span onclick="handleClick('{{ asset('storage/' . 'sample/animal_housing.pdf') }}')"
                             class="cursor-pointer text-[#2640A1]">Animal Housing
                         </span>
