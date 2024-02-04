@@ -27,7 +27,7 @@ class ApplicationController extends Controller
 
         // $applications = Application::latest()->filter(request(['status', 'search']))->user->where('instituition', auth()->user()->instituition)->simplePaginate(6);
         $applications = $userCheck  ? Application::latest()->filter(request(['status', 'search']))->simplePaginate(6) : Application::join('users', 'applications.applicant_id', '=', 'users.id')
-            ->where('users.institution', '=', auth()->user()->instituition)
+            ->where('users.institution', '=', auth()->user()->institution)
             ->where('users.category', '=', auth()->user()->category)
             ->latest('applications.created_at')
             ->filter(request(['status', 'search']))
