@@ -48,24 +48,24 @@
             <div class="grid gap-x-3 gap-y-2 lg:grid-cols-3 md:grid-cols-2">
                 <div class="text-center bg-[#2640A1] rounded-lg px-4 py-12">
                     <img class="mx-auto mb-2" width="25px" src="{{ asset('icons/list.png') }}" alt="profile">
-                    <p class="font-semibold text-2xl text-white">{{ auth()->user()->reviewer_application()->count() }}
+                    <p class="font-semibold text-2xl text-white">{{ auth()->user()->assignedApplications()->count() }}
                         Applications</p>
                 </div>
                 <div class="text-center bg-[#2640A1] rounded-lg px-4 py-12">
                     <img class="mx-auto mb-2" width="25px" src="{{ asset('images/people.png') }}" alt="profile">
-                    <p class="font-semibold text-2xl text-white">{{ auth()->user()->reviewer_application()->count() }}
+                    <p class="font-semibold text-2xl text-white">{{ auth()->user()->assignedApplications()->count() }}
                         Applicants</p>
                 </div>
                 <div class="text-center bg-[#C63740] rounded-lg px-4 py-12">
                     <img class="mx-auto mb-2" width="25px" src="{{ asset('images/pendings.png') }}" alt="profile">
                     <p class="font-semibold text-2xl text-white">
-                        {{ auth()->user()->reviewer_application()->where('status', 'pending')->count() }} Pending</p>
+                        {{ auth()->user()->assignedApplications()->where('status', 'pending')->count() }} Pending</p>
                 </div>
             </div>
             <div class="bg-white rounded-xl px-5 mt-5 py-3">
                 <p class="ml-8">Recent Activity</p>
                 <div class="overflow-y-auto h-62 mt-2">
-                    @forelse (auth()->user()->reviewer_application()->get() as $application)
+                    @forelse (auth()->user()->assignedApplications()->get() as $application)
                         <div class="w-full rounded-xl px-4 shadow-lg flex items-center mt-4 pb-2">
                             <div class="w-5/12 flex items-center">
                                 <div class="w-8 h-8 rounded-full mr-3">
@@ -89,7 +89,7 @@
                                     {{ $application->status == 'pending' ? 'Pending' : ($application->status == 'approved' ? 'Approved' : 'Rejected') }}
                                 </a>
                             </div>
-                            <div class="w-2/12 {{ $application->reviewer ?? 'hover-text' }} text-center border-l px-2">
+                            <div class="w-2/12 {{ $application->assignedReviewers ?? 'hover-text' }} text-center border-l px-2">
                                 <a href="/reviewer/application/{{ $application->id }}"
                                     class="text-white text-sm fonts-medium px-2 py-1 bg-[#2640A1] rounded">See
                                     details</a>

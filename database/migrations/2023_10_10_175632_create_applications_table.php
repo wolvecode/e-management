@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('app_id')->nullable()->unique();
             $table->foreignId('applicant_id')->constrained('users')->onDelete('cascade');
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
-            $table->foreignId('assigned_reviewer_id')->nullable()->default(null)->constrained('users');
             $table->enum('category', ['animal', 'human']);
             $table->string('title');
             $table->string('attachment')->nullable()->default(null);

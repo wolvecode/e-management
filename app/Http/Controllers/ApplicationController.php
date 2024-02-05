@@ -60,8 +60,7 @@ class ApplicationController extends Controller
             'supporting_document' =>   "required|mimes:docx,doc|max:10000",
         ]);
 
-
-        if ($request->hasFile('attachment') || $request->hasFile('attachment')) {
+        if ($request->hasFile('attachment') || $request->hasFile('supporting_document')) {
             $formFields['attachment'] = $request->file('attachment')->store('application', 'public');
             $formFields['supporting_document'] = $request->file('supporting_document')->store('supporting-document', 'public');
         }
@@ -217,9 +216,18 @@ class ApplicationController extends Controller
      */
     public function assign(Application $application, $user_id)
     {
-        $application->update([
-            'assigned_reviewer_id' => $user_id
-        ]);
+        $application = Application::find($application->id);
+
+        $reviwerValidate = $application->assignedReviewers->contains($user_id);
+        if ($reviwerValidate) {
+            return back()->with('message', 'Reviewer already assigned');
+        }
+        $reviewer = User::find($user_id);
+        $application->assignedReviewers()->attach($reviewer);
+
+        // $application->update([
+        //     'assigned_reviewer_id' => $user_id
+        // ]);
         return back()->with('message', 'Application assigned to reviewer');
     }
 

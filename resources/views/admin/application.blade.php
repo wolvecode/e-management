@@ -141,11 +141,11 @@
                                 class="pointer-events-none text-sm fonts-medium px-3 py-1.5 
                                 {{ $application->review_status == 'approved'
                                     ? 'bg-[#F1F4F1] text-[#34A853]'
-                                    : ($application->reviewer
+                                    : ($application->assignedReviewers->count() > 0
                                         ? 'bg-[#F1F4F1] text-[#34A853]'
                                         : 'bg-[#FFEFEF] text-[#A83449]') }} rounded-lg">
 
-                                {{ $application->review_status == 'approved' || $application->review_status == 'rejected' ? 'Completed' : ($application->reviewer ? 'Assigned' : 'Not assigned') }}
+                                {{ $application->review_status == 'approved' || $application->review_status == 'rejected' ? 'Completed' : ($application->assignedReviewers->count() > 0 ? 'Assigned' : 'Not assigned') }}
                             </button>
                         </div>
                         <div class="w-2/12 text-center border-l pl-5">
@@ -159,7 +159,7 @@
                                 {{ $application->status == 'pending' ? 'Pending' : ($application->status == 'approved' ? 'Approved' : 'Rejected') }}
                             </a>
                         </div>
-                        <div class="w-2/12 {{ $application->reviewer ?? 'hover-text' }} text-center border-l px-2">
+                        <div class="w-2/12 {{ $application->assignedReviewers->count() > 0 ?? 'hover-text' }} text-center border-l px-2">
                             <a href="/{{ auth()->user()->role == 'super_admin' ? 'admin' : auth()->user()->role }}/application/{{ $application->id }}"
                                 class="text-white text-sm fonts-medium px-2 py-1 bg-[#2640A1] rounded">
                                 See details

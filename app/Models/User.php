@@ -78,4 +78,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Comment::class, 'reviewer_id');
     }
+
+    public function assignedApplications()
+    {
+        return $this->belongsToMany(Application::class, 'reviewers', 'reviewer_id', 'application_id');
+    }
 }

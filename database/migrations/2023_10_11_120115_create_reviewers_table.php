@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('reviewers', function (Blueprint $table) {
-            // $table->id();
-            $table->foreignId('reviewer_id')->constrained('users');
-            $table->string('specialization');
+            $table->id();
+            $table->foreignId('application_id')->constrained('applications')->onDelete('cascade');
+            $table->foreignId('reviewer_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

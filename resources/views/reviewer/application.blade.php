@@ -76,7 +76,7 @@
                 <div class="w-2/12 text-center px-2">
                 </div>
             </div>
-            @forelse (auth()->user()->reviewer_application as $application)
+            @forelse (auth()->user()->assignedApplications as $application)
                 <x-single-application-card :application="$application" />
             @empty
                 <p class="text-center">No application available</p>

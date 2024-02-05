@@ -207,14 +207,16 @@
                                 class="after:content-['*'] after:ml-0.5 after:text-red-500  text-sm font-medium text-slate-700">
                                 Research Type
                             </span>
-                            <select name="category" id=""
+                            <input type="text" name="category"
                                 class="h-10 px-3 py-2 bg-white
                                 border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none
                                 focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm 
-                                focus:ring-1">
-                                <option value="human">Human</option>
-                                <option value="animal">Animal</option>
-                            </select>
+                                focus:ring-1 capitalize"
+                                readonly
+                                 placeholder="Enter Category" value="{{auth()->user()->category}}" />
+                            @error('category')
+                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
                     <div class="mt-8">

@@ -253,7 +253,7 @@
                                     {{ $application->status == 'pending' ? 'Pending' : ($application->status == 'approved' ? 'Approved' : 'Rejected') }}
                                 </a>
                             </div>
-                            <div class="w-2/12 {{ $application->reviewer ?? 'hover-text' }} text-center border-l px-2">
+                            <div class="w-2/12 {{ $application->assignedReviewers->count() > 0 ?? 'hover-text' }} text-center border-l px-2">
                                 <a href="/applicant/application/{{ $application->id }}"
                                     class="text-white text-sm fonts-medium px-2 py-1 bg-[#2640A1] rounded">See
                                     details</a>

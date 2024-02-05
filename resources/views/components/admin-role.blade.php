@@ -10,7 +10,7 @@
                 </div>
             </div>
 
-            @forelse (App\Models\User::where('role', 'reviewer')->where('category', $application->category)->where('institution',$application->institution)->get() as $user)
+            @forelse (App\Models\User::where('role', 'reviewer')->where('category', $application->category)->where('institution',$application->user->institution)->get() as $user)
                 <form class="mt-2"
                     action="/{{ explode('/', $_SERVER['REQUEST_URI'])[1] }}/{{ $application->id }}/{{ $user->id }}"
                     method="POST">
@@ -19,7 +19,7 @@
                     <div class="flex justify-between">
                         <p class="w-1/2">{{ $user->name }}</p>
                         <div class="w-1/2 flex">
-                            <p class="w-1/2 text-center">{{ $user->reviewer_application->count() }}</p>
+                            <p class="w-1/2 text-center">{{ $user->assignedApplications->count() }}</p>
                             <button
                                 class="w-1/2 pointer-events-auto text-sm fonts-medium px-3 py-1.5 bg-[#F1F4F1] text-[#34A853]">
                                 Assign
@@ -102,8 +102,8 @@
             </form>
         </div>
     @endif
-
-    @if (!$application->reviewer)
+    
+    @if (!$application->assignedReviewers)
         <div class="flex justify-center border-t-2">
             <button onClick="myFunction('<?php echo $application->id; ?>')"
                 class="text-base px-5 py-2 mt-5 mr-4 rounded-md bg-[#FFEFEF] text-[#A83449]" type="submit">
@@ -121,7 +121,7 @@
             </a>
         </div>
     @endif
-    @if ($application->reviewer && !$application->edited_attachment)
+    @if ($application->assignedReviewers && !$application->edited_attachment)
         <div class="flex justify-center border-t-2">
             <button onClick="myFunction('<?php echo $application->id; ?>')"
                 class="text-base px-6 py-2 mt-5 mr-4 rounded-md bg-[#FFEFEF] text-[#A83449]" type="submit">

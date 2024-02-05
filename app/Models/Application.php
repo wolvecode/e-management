@@ -58,4 +58,9 @@ class Application extends Model
                 ->orWhere('status', 'like', '%' . request('search') . '%');
         }
     }
+
+    public function assignedReviewers()
+    {
+        return $this->belongsToMany(User::class, 'reviewers', 'application_id', 'reviewer_id');
+    }
 }

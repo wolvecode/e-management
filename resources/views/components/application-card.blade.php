@@ -22,7 +22,7 @@
                 <ul class="w-full flex justify-center ml-20">
                     <li style="width: 40%" class="flex items-center">
                         <img class=""
-                            src="{{ $application->reviewer ? asset('images/progress-green.png') : asset('icons/gray-circle.png') }}"
+                            src="{{ $application->assignedReviewers ? asset('images/progress-green.png') : asset('icons/gray-circle.png') }}"
                             alt="progress">
                         <div style="width: 100%"
                             class="h-1 shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-[#1E1E1E66] opacity-[.40]">
@@ -75,7 +75,7 @@
                 </div>
             </div>
         </div>
-    @else
+        @else
         <div class="md:w-64 lg:w-70 bg-white rounded-xl md:p-4 lg:p-6 mt-5">
             <form method="POST" action="/reviewer/comment/{{ $application->id }}">
                 @csrf
@@ -86,7 +86,7 @@
                         class="h-8 mt-2 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-lg sm:text-sm focus:ring-1"
                         placeholder="Leave a comment" />
                     @error('comment')
-                        <p class="text-red-500 text-xs">{{ $message }}</p>
+                    <p class="text-red-500 text-xs">{{ $message }}</p>
                     @enderror
                     <div class="flex justify-end mt-2">
                         <button class="text-white text-xs bg-[#2640A1] px-4 py-1 rounded-md"
@@ -117,13 +117,13 @@
                                     ? (strlen($application->user->profileLink) != 0
                                         ? asset('storage/' . $application->user->profileLink)
                                         : asset('icons/na-profile.png'))
-                                    : ($application->reviewer && strlen($application->reviewer->profileLink) != 0
-                                        ? asset('storage/' . $application->reviewer->profileLink)
+                                    : ($application->assignedReviewers && strlen($application->assignedReviewers->profileLink) != 0
+                                        ? asset('storage/' . $application->assignedReviewers->profileLink)
                                         : asset('icons/default-profile.png')) }}"
                                 alt="image">
                         </div>
                         <p class="mt-3 text-center text-[#2640A1]">
-                            {{ auth()->user()->role == 'applicant' ? ($application->reviewer ? $application->reviewer->name : 'NA') : $application->user->name ?? 'NA' }}
+                            {{ auth()->user()->role == 'applicant' ? ($application->assignedReviewers ? $application->assignedReviewers->name : 'NA') : $application->user->name ?? 'NA' }}
                         </p>
                         <div class="flex justify-center mt-2">
                             <a href="tel:08169030947"
@@ -131,13 +131,13 @@
                                 <img class="mx-auto mr-2" width="10px" src="{{ asset('icons/call.png') }}"
                                     alt="profile">
                                 <p class="text-white">
-                                    {{ auth()->user()->role == 'applicant' ? ($application->reviewer ? $application->reviewer->contact : 'NA') : $application->user->contact ?? 'NA' }}
+                                    {{ auth()->user()->role == 'applicant' ? ($application->assignedReviewers ? $application->assignedReviewers->contact : 'NA') : $application->user->contact ?? 'NA' }}
                                 </p>
                             </a>
                         </div>
                     </div>
                     <p class="text-center text-sm text-[#2640A1] border-t-2 py-2">
-                        {{ auth()->user()->role == 'applicant' ? ($application->reviewer ? $application->reviewer->email : 'NA') : $application->user->email ?? 'NA' }}
+                        {{ auth()->user()->role == 'applicant' ? ($application->assignedReviewers ? $application->assignedReviewers->email : 'NA') : $application->user->email ?? 'NA' }}
                     </p>
                 </div>
                 <div class="md:w-64 lg:w-70 bg-white rounded-xl md:p-4 lg:p-6 mt-5">
@@ -187,9 +187,9 @@
             class="{{ auth()->user()->role == 'admin' || auth()->user()->role == 'super_admin' ? ' w-3/4' : 'w-full' }} bg-white rounded-xl">
             @if (auth()->user()->role == 'applicant')
                 <x-applicant-role-card :application="$application" />
-            @elseif(auth()->user()->role == 'reviewer')
+                @elseif(auth()->user()->role == 'reviewer')
                 <x-reviewer-role :application="$application" />
-            @else
+                @else
                 <x-admin-role :application="$application" />
             @endif
         </div>
