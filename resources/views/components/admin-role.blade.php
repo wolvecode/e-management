@@ -62,7 +62,7 @@
                     <label class="block">
                         <div
                             class="after:content-['*'] after:ml-0.5 {{ $application->approval_letter ? 'after:text-green-500' : 'after:text-red-500' }} text-base font-medium text-slate-700">
-                            Upload approval letter
+                            Choose Approval Letter
                         </div>
                         <input type="file" name="approval_letter" id="">
                         @error('approval_letter')
@@ -75,7 +75,7 @@
                         class="bg-[#F1F4F1] flex items-center px-6 py-1 text-[#1E1E1E] rounded-lg mr-4">
                         <img class="mr-2" width="16" src="{{ asset('icons/filled-upload.png') }}" alt="download">
                         <p class="">
-                            Upload completed letter
+                            Save Approval Letter
                         </p>
                     </button>
                     <a href="{{ asset('storage/' . $application->edited_attachment ?? '') }}"
@@ -102,8 +102,8 @@
             </form>
         </div>
     @endif
-    
-    @if (!$application->assignedReviewers)
+
+    @if ($application->review_status === 'pending')
         <div class="flex justify-center border-t-2">
             <button onClick="myFunction('<?php echo $application->id; ?>')"
                 class="text-base px-5 py-2 mt-5 mr-4 rounded-md bg-[#FFEFEF] text-[#A83449]" type="submit">
@@ -116,19 +116,6 @@
             </a>
             <a href="{{ asset('storage/' . $application->attachment ?? '') }}"
                 class="bg-[#F1F4F1] flex items-center px-5 py-2 text-[#1E1E1E] rounded-lg mr-4 mt-5" target="_blank">
-                <img class="mr-2" src="{{ asset('icons/cloud.png') }}" alt="download">
-                <p class="">Application document</p>
-            </a>
-        </div>
-    @endif
-    @if ($application->assignedReviewers && !$application->edited_attachment)
-        <div class="flex justify-center border-t-2">
-            <button onClick="myFunction('<?php echo $application->id; ?>')"
-                class="text-base px-6 py-2 mt-5 mr-4 rounded-md bg-[#FFEFEF] text-[#A83449]" type="submit">
-                Assign to reviewer
-            </button>
-            <a href="{{ asset('storage/' . $application->attachment ?? '') }}"
-                class="bg-[#F1F4F1] flex items-center px-6 py-2 text-[#1E1E1E] rounded-lg mr-4 mt-5" target="_blank">
                 <img class="mr-2" src="{{ asset('icons/cloud.png') }}" alt="download">
                 <p class="">Application document</p>
             </a>

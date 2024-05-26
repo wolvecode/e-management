@@ -22,7 +22,7 @@
                 <ul class="w-full flex justify-center ml-20">
                     <li style="width: 40%" class="flex items-center">
                         <img class=""
-                            src="{{ $application->assignedReviewers ? asset('images/progress-green.png') : asset('icons/gray-circle.png') }}"
+                            src="{{ count($application->assignedReviewers) > 0  ? asset('images/progress-green.png') : asset('icons/gray-circle.png') }}"
                             alt="progress">
                         <div style="width: 100%"
                             class="h-1 shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-[#1E1E1E66] opacity-[.40]">
