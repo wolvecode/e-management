@@ -9,8 +9,9 @@
         <div class="w-1/6 relative bg-[#2640A1]">
             <div class="border-b border-[#E5E5E5] border-opacity-60 py-1">
                 <div class="justify-center">
-                    <h1 class="text-lg text-[#FAFAFA] text-center fonts-bold px-10 mt-2">Research</h1>
-                    <h1 class="text-lg text-[#FAFAFA] text-center fonts-bold px-10">Ethics Office</h1>
+                    <img class="text-center" width="100" src="{{ asset('icons/logo.png') }}" alt="main-logo">
+                    {{-- <h1 class="text-lg text-[#FAFAFA] text-center fonts-bold px-10 mt-2">Research</h1>
+                    <h1 class="text-lg text-[#FAFAFA] text-center fonts-bold px-10">Ethics Office</h1> --}}
                 </div>
             </div>
 
