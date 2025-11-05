@@ -7,50 +7,61 @@
 @endpush
 
 @section('content')
-    <div class="bg-[#FFFFFF]">
-        <div class="w-full flex">
-            <!-- component -->
-            <section class="flex flex-col md:flex-row h-screen items-center">
+    <div class="bg-white min-h-screen flex flex-col md:flex-row">
+        <!-- Left Banner Section (Hidden on small screens) -->
+        <div class="hidden lg:block md:w-1/2 xl:w-2/3">
+            <img src="{{ asset('images/banner.jpg') }}" alt="Admin Login Banner" class="w-full h-screen object-cover">
+        </div>
 
-                <div class="bg-indigo-600 hidden lg:block w-full md:w-1/2 xl:w-2/3 h-screen">
-                    <img src="{{ asset('images/banner.jpg') }}" alt="" class="w-full h-full object-cover">
-                </div>
+        <!-- Right Login Form -->
+        <div class="w-full md:w-1/2 xl:w-1/3 flex items-center justify-center px-6 py-10 md:py-0">
+            <div class="w-full max-w-md">
+                <h1 class="text-2xl md:text-3xl font-semibold text-gray-800 mb-6 text-center md:text-left">
+                    Log in to your account
+                </h1>
 
-                <div
-                    class="bg-white w-full md:max-w-md lg:max-w-full md:mx-auto md:mx-0 md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12
-                    flex items-center justify-center">
+                <form method="POST" action="/admin/login" class="space-y-5">
+                    @csrf
 
-                    <div class="w-full h-100">
-                        <h1 class="text-xl md:text-2xl font-bold leading-tight mt-12">Log in to your account</h1>
-                        <form method="POST" action="/admin/login" class="mt-6">
-                            @csrf
-                            <div>
-                                <label class="block text-gray-700">Email Address</label>
-                                <input type="email" name="email" id="" placeholder="Enter Email Address"
-                                    class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
-                                    autofocus autocomplete required value="{{ old('email') }}"" />
-                                @error('email')
-                                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                                @enderror
-                            </div>
-
-                            <div class="mt-4">
-                                <label class="block text-gray-700">Password</label>
-                                <input type="password" name="password" id="" placeholder="Enter Password"
-                                    minlength="6"
-                                    class="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
-                                focus:bg-white focus:outline-none"
-                                    required value="{{ old('password') }}"" />
-                            </div>
-                            <button type="submit"
-                                class="w-full block bg-indigo-500 hover:bg-indigo-400 focus:bg-indigo-400 text-white font-semibold rounded-lg px-4 py-3 mt-6">Log
-                                In</button>
-                        </form>
-                        {{-- <hr class="my-6 border-gray-300 w-full"> --}}
+                    <!-- Email -->
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium">Email Address</label>
+                        <input type="email" name="email" placeholder="Enter Email Address"
+                            class="w-full px-4 py-3 rounded-lg bg-gray-100 border border-gray-300 mt-2 focus:ring-2 
+                            focus:ring-indigo-500 focus:bg-white focus:outline-none"
+                            value="{{ old('email') }}" required autofocus />
+                        @error('email')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
-                </div>
 
-            </section>
+                    <!-- Password -->
+                    <div>
+                        <label class="block text-gray-700 text-sm font-medium">Password</label>
+                        <input type="password" name="password" placeholder="Enter Password" minlength="6"
+                            class="w-full px-4 py-3 rounded-lg bg-gray-100 border border-gray-300 mt-2 focus:ring-2 
+                            focus:ring-indigo-500 focus:bg-white focus:outline-none"
+                            required />
+                        @error('password')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit"
+                        class="w-full bg-indigo-600 hover:bg-indigo-500 focus:bg-indigo-500 text-white font-semibold 
+                        rounded-lg px-4 py-3 transition-colors duration-200">
+                        Log In
+                    </button>
+                </form>
+
+                <!-- Optional: Forgot password link -->
+                <div class="text-center mt-4">
+                    <a href="/forgot-password" class="text-sm text-indigo-600 hover:underline">
+                        Forgot your password?
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
