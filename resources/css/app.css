@@ -2,18 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
+/* small UI helper classes used across views (fixes some non-Tailwind class names used in templates) */
+.fonts-semibold { font-weight: 600; }
+.fonts-bold { font-weight: 700; }
+.fonts-normal { font-weight: 400; }
+.h-18 { height: 4.5rem; }
+
+/* Smooth scrollbars (light styling) */
 /* width */
 ::-webkit-scrollbar { 
-    /* width: 4px;      */
+        height: 8px;
+        width: 8px;
 } 
-  
+
 /* Track */
 ::-webkit-scrollbar-track { 
-    background: #f1f1f1; 
+        background: transparent; 
 } 
-  
+
 /* Handle */
 ::-webkit-scrollbar-thumb { 
-    background: #d8d8d8; 
-    border-radius: 5px; 
-} 
+        background: rgba(0,0,0,0.15); 
+        border-radius: 8px; 
+}
+
+/* Small responsive helpers */
+@layer components {
+    .container-sm {
+        max-width: 100%;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    @screen md {
+        .container-sm { max-width: 720px; }
+    }
+    @screen lg {
+        .container-sm { max-width: 1024px; }
+    }
+}

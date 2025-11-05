@@ -5,21 +5,23 @@
 @section('content')
 
     @props(['user'])
-    <div class="min-h-screen flex">
-        <div class="w-1/6 relative bg-[#2640A1]">
-            <div class="border-b border-[#E5E5E5] border-opacity-60 py-1">
-                <div class="justify-center">
-                    <h1 class="text-lg text-[#FAFAFA] text-center fonts-bold px-10 mt-2">Research</h1>
-                    <h1 class="text-lg text-[#FAFAFA] text-center fonts-bold px-10">Ethics Office</h1>
-                </div>
+
+    <div x-data="{ open: false }" class="flex min-h-screen bg-gray-50 overflow-hidden">
+
+        {{-- SIDEBAR --}}
+        <aside :class="open ? 'translate-x-0' : '-translate-x-full'"
+            class="w-64 bg-[#2640A1] transform transition-transform duration-200 flex flex-col md:translate-x-0 md:relative fixed inset-y-0 z-40 overflow-y-auto">
+
+            <div class="border-b border-[#E5E5E5] border-opacity-60 py-3 flex items-center justify-center">
+                <img class="text-center" width="100" src="{{ asset('icons/logo.png') }}" alt="main-logo">
             </div>
 
-            <div class="overflow-y-auto overflow-x-hidden flex-grow">
-                <ul class=" flex flex-col w-full py-4 space-y-1">
+            <nav class="flex-1 flex flex-col px-0 py-4">
+                <ul class="flex flex-col flex-1 w-full space-y-1">
                     <li>
                         <a href="/{{ auth()->user()->role == 'super_admin' ? 'admin' : auth()->user()->role }}/dashboard"
-                            class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-[#325AB3] text-white hover:text-[#34A853] border-l-4 border-transparent hover:border-indigo-500 pl-6 py-8">
-                            <span class="inline-flex justify-center items-center ml-4">
+                            class="relative flex items-center h-12 hover:bg-[#325AB3] text-white pl-6 rounded-r-lg">
+                            <span class="inline-flex justify-center items-center ml-1">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -27,16 +29,18 @@
                                     </path>
                                 </svg>
                             </span>
-                            <span class="ml-2 fonts-semibold text-lg tracking-wide truncate">Dashboard</span>
+                            <span class="ml-3 font-semibold text-lg tracking-wide truncate">Dashboard</span>
                         </a>
                     </li>
+
                     @yield('sidebar-item')
-                    <li class="absolute w-full bottom-0">
+
+                    <li class="mt-auto">
                         <form method="POST" action="/logout">
                             @csrf
                             <button type="submit"
-                                class="w-full flex flex-row items-center h-11 focus:outline-none hover:bg-[#325AB3] text-white hover:text-[#34A853] border-l-4 border-transparent hover:border-indigo-500 pl-6 py-8">
-                                <span class="inline-flex justify-center items-center ml-4">
+                                class="w-full flex items-center h-12 hover:bg-[#325AB3] text-white pl-6 rounded-r-lg">
+                                <span class="inline-flex justify-center items-center ml-1">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -44,26 +48,37 @@
                                         </path>
                                     </svg>
                                 </span>
-                                <span class="ml-2 fonts-normal text-lg tracking-wide truncate">Logout</span>
+                                <span class="ml-3 font-normal text-lg tracking-wide truncate">Logout</span>
                             </button>
                         </form>
-
                     </li>
                 </ul>
-            </div>
-        </div>
+            </nav>
+        </aside>
 
-        <div class="w-5/6 relative">
-            <div class="">
-                <div class="w-full flex justify-between h-18 border-b-2 border-black border-opacity-[.12] py-3 px-6">
+        {{-- MAIN CONTENT --}}
+        <div class="flex-1 flex flex-col bg-white">
+
+            {{-- HEADER --}}
+            <header
+                class="sticky top-0 z-20 w-full flex items-center justify-between h-16 border-b border-black border-opacity-10 px-4 md:px-6 bg-white">
+                <div class="flex items-center gap-3">
+                    {{-- mobile hamburger --}}
+                    <button @click="open = true" class="md:hidden p-2 rounded bg-gray-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+
                     @if (auth()->user()->role == 'super_admin' || auth()->user()->role == 'admin')
-                        <div class="w-2/3">
+                        <div class="hidden md:block w-full">
                             <form action="" method="get">
-                                <div class="relative border-2 border-2 border-gray-100 m-4 rounded-lg">
+                                <div class="relative border border-gray-100 rounded-lg">
                                     <input type="text" name="search" id=""
-                                        class="h-14 w-full pl-5 pr-20 rounded-lg z-0 focys:shadow focus:outline-none"
-                                        placeholder="Search">
-                                    <div class="absolute top-2 right-2">
+                                        class="h-12 w-full pl-5 pr-20 rounded-lg focus:outline-none" placeholder="Search">
+                                    <div class="absolute top-1 right-1">
                                         <button type="submit"
                                             class="h-10 w-20 text-white rounded-lg bg-[#2640A1] hover:bg-opacity-90">Search</button>
                                     </div>
@@ -71,21 +86,29 @@
                             </form>
                         </div>
                     @endif
-                    <div class="w-1/3 flex justify-end items-center ml-auto">
-                        <div class="h-12 w-12 bg-red-100 rounded-full mr-2">
-                            <img class="w-full h-full rounded-full"
-                                src="{{ strlen(auth()->user()->profileLink) == 0 ? asset('icons/default-profile.png') : asset('storage/' . auth()->user()->profileLink) }}"
-                                alt="profile">
-                        </div>
-                        <div class="pl-4 border-l border-[#000]">
-                            <p class="">{{ explode(' ', auth()->user()->name)[0] }}</p>
-                            <h4 class="text-[#2640A1] text-xl fonts-semibold">@yield('page')</h4>
-                        </div>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <div class="h-12 w-12 bg-red-100 rounded-full mr-2 overflow-hidden">
+                        <img class="w-full h-full object-cover"
+                            src="{{ strlen(auth()->user()->profileLink) == 0 ? asset('icons/default-profile.png') : asset('storage/' . auth()->user()->profileLink) }}"
+                            alt="profile">
+                    </div>
+                    <div class="pl-4 border-l border-[#000]">
+                        <p class="">{{ explode(' ', auth()->user()->name)[0] }}</p>
+                        <h4 class="text-[#2640A1] text-xl font-semibold">@yield('page')</h4>
                     </div>
                 </div>
-            </div>
-            @yield('side')
+            </header>
+
+            {{-- MAIN BODY --}}
+            <main class="flex-1 p-4 md:p-6 overflow-y-auto">
+                @yield('side')
+            </main>
         </div>
+
+        {{-- Overlay for mobile --}}
+        <div x-show="open" @click="open = false" class="fixed inset-0 bg-black bg-opacity-40 z-30 md:hidden"></div>
     </div>
-    </div>
+
 @endsection

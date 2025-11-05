@@ -17,16 +17,16 @@
                 <a href="/applicant" class="text-[#2640A1] border border-[#2640A1] rounded-md px-4 py-1 mr-2">Applicant</a>
             </div>
         </div>
-        <div style="height: 560px;" class="relative mt-5 h-20">
-            <img class="h-full w-full rounded" src="{{ asset('images/banner.jpg') }}" alt="banner">
-            <div class="flex absolute justify-center top-0 h-full w-full mt-28">
-                <p class="w-11/12 text-4xl text-white font-base">
+        <div class="relative mt-5">
+            <img class="h-56 md:h-80 w-full object-cover rounded" src="{{ asset('images/banner.jpg') }}" alt="banner">
+            <div class="absolute inset-0 flex items-center justify-center">
+                <p class="w-11/12 text-2xl md:text-4xl text-white font-base leading-tight">
                     This is the electronic management system for ethical approval applications submitted to the
                     institutional
                     health research ethics committee (HREC) and animal care and use research ethics committeee (ACUREC).
                 </p>
             </div>
-            <div class="absolute bottom-28 left-20">
+            <div class="absolute bottom-6 left-4 md:left-20">
                 <button class="text-base text-white bg-[#B80C4A] px-4 py-2 rounded-lg">Get Started</button>
             </div>
         </div>

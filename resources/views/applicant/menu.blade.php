@@ -156,23 +156,23 @@
     <x-instruction-modal />
     <div class="p-5">
         <div class="xl:max-h-[640px] 2xl:max-h-[780px] overflow-y-auto bg-gray-100 rounded-xl px-5 py-3">
-            <div class="grid gap-x-4 gap-y-2 lg:grid-cols-4 md:grid-cols-2">
-                <div class="text-center bg-[#2640A1] rounded-lg px-4 py-8">
+            <div class="grid gap-x-4 gap-y-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+                <div class="text-center bg-[#2640A1] rounded-lg px-4 py-6 sm:py-8">
                     <img class="mx-auto mb-2" width="25px" src="{{ asset('icons/list.png') }}" alt="profile">
                     <p class="font-semibold text-2xl text-white">{{ auth()->user()->application->count() }} Applications
                     </p>
                 </div>
-                <div class="justify-center text-center bg-[#34A853] rounded-lg px-4 py-8">
+                <div class="justify-center text-center bg-[#34A853] rounded-lg px-4 py-6 sm:py-8">
                     <img class="mx-auto mb-2" width="25px" src="{{ asset('icons/approved.png') }}" alt="profile">
                     <p class="font-semibold text-2xl text-white">
                         {{ auth()->user()->application->where('status', 'approved')->count() }} Approved</p>
                 </div>
-                <div class="text-center bg-[#2640A1] rounded-lg px-4 py-8">
+                <div class="text-center bg-[#2640A1] rounded-lg px-4 py-6 sm:py-8">
                     <img class="mx-auto mb-2" width="25px" src="{{ asset('icons/pending.png') }}" alt="profile">
                     <p class="font-semibold text-2xl text-white">
                         {{ auth()->user()->application->where('status', 'pending')->count() }} Pending</p>
                 </div>
-                <div class="text-center bg-[#C63740] rounded-lg px-4 py-8">
+                <div class="text-center bg-[#C63740] rounded-lg px-4 py-6 sm:py-8">
                     <img class="mx-auto mb-2" width="25px" src="{{ asset('icons/rejected.png') }}" alt="profile">
                     <p class="font-semibold text-2xl text-white">
                         {{ auth()->user()->application->where('status', 'rejected')->count() }} Rejected</p>
@@ -187,33 +187,33 @@
                             {{ auth()->user()->application->last()->created_at->format('Y-m-d') }}</p>
                     </div>
                     <p class="fonts-semibold text-2xl mt-2">Current Application Status</p>
-                    <div class="w-5/6 static pt-1 mx-auto mt-4">
-                        <div class="overflow-hidden h-2 mb-4 text-xs flex rounded">
-                            <div style="width: 25%"
-                                class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center {{ auth()->user()->application->last()->review_status == 'pending'? 'bg-[#2640A1]': 'bg-[#34A853]' }} mr-2 rounded-xl">
+                    <div class="w-full sm:w-5/6 static pt-1 mx-auto mt-4">
+                        <div class="overflow-hidden h-2 mb-4 text-xs flex flex-col sm:flex-row rounded">
+                            <div style="width: 100%"
+                                class="sm:w-1/4 shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center {{ auth()->user()->application->last()->review_status == 'pending' ? 'bg-[#2640A1]' : 'bg-[#34A853]' }} mr-2 rounded-xl mb-2 sm:mb-0">
                             </div>
-                            <div style="width: 25%"
-                                class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center {{ auth()->user()->application->last()->review_status == 'approve'? 'bg-[#34A853]': 'bg-[#2640A1]' }} mr-2 rounded-xl">
+                            <div style="width: 100%"
+                                class="sm:w-1/4 shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center {{ auth()->user()->application->last()->review_status == 'approve' ? 'bg-[#34A853]' : 'bg-[#2640A1]' }} mr-2 rounded-xl mb-2 sm:mb-0">
                             </div>
-                            <div style="width: 25%"
-                                class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center {{ auth()->user()->application->last()->status != 'pending'? 'bg-[#34A853]': 'bg-[#2640A1]' }} mr-2 rounded-xl">
+                            <div style="width: 100%"
+                                class="sm:w-1/4 shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center {{ auth()->user()->application->last()->status != 'pending' ? 'bg-[#34A853]' : 'bg-[#2640A1]' }} mr-2 rounded-xl mb-2 sm:mb-0">
                             </div>
-                            <div style="width: 25%"
-                                class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center {{ auth()->user()->application->last()->status != 'pending'? 'bg-[#34A853]': 'bg-[#2640A1]' }} mr-2 rounded-xl">
+                            <div style="width: 100%"
+                                class="sm:w-1/4 shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center {{ auth()->user()->application->last()->status != 'pending' ? 'bg-[#34A853]' : 'bg-[#2640A1]' }} mr-2 rounded-xl">
                             </div>
                         </div>
-                        <div class="overflow-hidden mb-4 text-xs flex rounded">
-                            <div style="width: 25%"
-                                class="shadow-none flex flex-col text-center whitespace-nowrap justify-center text-base text-[#1E1E1E]">
+                        <div class="overflow-hidden mb-4 text-xs flex flex-col sm:flex-row rounded">
+                            <div
+                                class="sm:w-1/4 shadow-none flex flex-col text-center whitespace-nowrap justify-center text-base text-[#1E1E1E] mb-2 sm:mb-0">
                                 Assigned to reviewer</div>
-                            <div style="width: 25%"
-                                class="shadow-none flex flex-col text-center whitespace-nowrap justify-center text-base text-[#1E1E1E]">
+                            <div
+                                class="sm:w-1/4 shadow-none flex flex-col text-center whitespace-nowrap justify-center text-base text-[#1E1E1E] mb-2 sm:mb-0">
                                 Approved by reviewer</div>
-                            <div style="width: 25%"
-                                class="shadow-none flex flex-col text-center whitespace-nowrap justify-center text-base text-[#1E1E1E]">
+                            <div
+                                class="sm:w-1/4 shadow-none flex flex-col text-center whitespace-nowrap justify-center text-base text-[#1E1E1E] mb-2 sm:mb-0">
                                 Approved by admin</div>
-                            <div style="width: 25%"
-                                class="shadow-none flex flex-col text-center whitespace-nowrap justify-center text-base text-[#1E1E1E]">
+                            <div
+                                class="sm:w-1/4 shadow-none flex flex-col text-center whitespace-nowrap justify-center text-base text-[#1E1E1E]">
                                 Completed</div>
                         </div>
                     </div>
@@ -226,12 +226,13 @@
             @endif
 
 
-            <div class="bg-white rounded-xl px-5 mt-5 py-3">
-                <p class="ml-8">Recent Activity</p>
-                <div class="overflow-y-auto h-62 mt-2">
+            <div class="bg-white rounded-xl px-2 md:px-5 mt-5 py-2 md:py-3">
+                <p class="ml-2 md:ml-8">Recent Activity</p>
+                <div class="overflow-y-auto max-h-64 mt-2 flex flex-col gap-2">
                     @forelse (auth()->user()->application()->latest()->limit(3)->get() as $application)
-                        <div class="w-full rounded-xl px-4 shadow-lg flex items-center mt-4 pb-2">
-                            <div class="w-5/12 flex items-center">
+                        <div
+                            class="w-full rounded-xl px-2 md:px-4 shadow-lg flex flex-col md:flex-row items-center mt-2 pb-2 gap-2">
+                            <div class="flex items-center w-full md:w-5/12">
                                 <div class="w-6 h-6 rounded-full mr-3">
                                     <img class="rounded-full h-full w-full"
                                         src="{{ strlen($application->user->profileLink) == 0 ? asset('icons/default-profile.png') : asset('storage/' . auth()->user()->profileLink) }}"
@@ -239,10 +240,10 @@
                                 </div>
                                 <h4 class="text-sm fonts-semibold">{!! $application->title !!}</h4>
                             </div>
-                            <div class="w-3/12 text-center border-l px-2">
+                            <div class="w-full md:w-3/12 text-center border-l px-2">
                                 <p class="text-sm fonts-medium">{!! $application->created_at->format('Y-m-d') !!}</p>
                             </div>
-                            <div class="w-2/12 text-center border-l pl-5">
+                            <div class="w-full md:w-2/12 text-center border-l pl-5">
                                 <a
                                     class="pointer-events-none text-sm fonts-medium px-3 py-1.5 
                                 {{ $application->status == 'pending'
@@ -253,7 +254,8 @@
                                     {{ $application->status == 'pending' ? 'Pending' : ($application->status == 'approved' ? 'Approved' : 'Rejected') }}
                                 </a>
                             </div>
-                            <div class="w-2/12 {{ $application->assignedReviewers->count() > 0 ?? 'hover-text' }} text-center border-l px-2">
+                            <div
+                                class="w-full md:w-2/12 {{ $application->assignedReviewers->count() > 0 ?? 'hover-text' }} text-center border-l px-2">
                                 <a href="/applicant/application/{{ $application->id }}"
                                     class="text-white text-sm fonts-medium px-2 py-1 bg-[#2640A1] rounded">See
                                     details</a>

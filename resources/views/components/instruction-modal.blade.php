@@ -49,16 +49,27 @@
         /* Add your modal styles here */
         .imodal {
             display: none;
-            position: absolute;
+            position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             padding: 20px;
             background-color: #fff;
             border: 1px solid #ccc;
-            max-width: 80%;
-            max-height: 80%;
+            width: calc(100% - 2rem);
+            max-width: 900px;
+            max-height: 85vh;
             overflow-y: auto;
+            z-index: 60;
+            border-radius: 8px;
+        }
+
+        /* responsive: slightly narrower on very small screens */
+        @media (max-width: 420px) {
+            .imodal {
+                padding: 12px;
+                width: calc(100% - 1rem);
+            }
         }
 
         .close-btn {
