@@ -1,6 +1,6 @@
 @props(['user'])
 
-<div class="md:w-64 lg:w-70 bg-white rounded-xl md:p-4 lg:p-6 mt-5">
+<div class="md:w-64 lg:w-72 bg-white rounded-xl md:p-4 lg:p-6 mt-5">
     <div class="flex items-center">
         <div class="flex items-center bg-[#F3F4FA] px-4 py-1 rounded-lg">
             <img class="mx-auto mr-2" width="10px" src="{{ asset('icons/profile.png') }}" alt="profile">

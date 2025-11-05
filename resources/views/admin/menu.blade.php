@@ -82,75 +82,94 @@
 @endsection
 
 @section('side')
-    <div class="p-5">
-        <div class="xl:max-h-[640px] 2xl:max-h-[780px] overflow-y-auto bg-gray-100 rounded-xl px-5 py-3">
+    <div class="p-3 md:p-5">
+        <div class="xl:max-h-[640px] 2xl:max-h-[780px] overflow-y-auto bg-gray-100 rounded-xl px-3 md:px-5 py-3">
 
-            <div class="grid gap-x-4 gap-y-2 lg:grid-cols-4 md:grid-cols-2">
-                <div class="text-center bg-[#2640A1] rounded-lg px-4 py-12">
-                    <img class="mx-auto mb-2" width="25px" src="{{ asset('icons/list.png') }}" alt="profile">
-                    <p class="font-semibold text-2xl text-white">{{ App\Models\Application::all()->count() }} Applications
+            {{-- Summary Cards --}}
+            <div class="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+                <div class="text-center bg-[#2640A1] rounded-lg px-4 py-6 sm:py-8 lg:py-12">
+                    <img class="mx-auto mb-2 w-6 sm:w-8" src="{{ asset('icons/list.png') }}" alt="Applications">
+                    <p class="font-semibold text-lg sm:text-xl lg:text-2xl text-white">
+                        {{ App\Models\Application::count() }} Applications
                     </p>
                 </div>
-                <div class="justify-center text-center bg-[#2640A1] rounded-lg px-4 py-12">
-                    <img class="mx-auto mb-2" width="25px" src="{{ asset('images/people.png') }}" alt="profile">
-                    <p class="font-semibold text-2xl text-white">{{ App\Models\User::where('role', 'applicant')->count() }}
-                        Applicants</p>
+
+                <div class="text-center bg-[#2640A1] rounded-lg px-4 py-6 sm:py-8 lg:py-12">
+                    <img class="mx-auto mb-2 w-6 sm:w-8" src="{{ asset('images/people.png') }}" alt="Applicants">
+                    <p class="font-semibold text-lg sm:text-xl lg:text-2xl text-white">
+                        {{ App\Models\User::where('role', 'applicant')->count() }} Applicants
+                    </p>
                 </div>
-                <div class="text-center bg-[#2640A1] rounded-lg px-4 py-12">
-                    <img class="mx-auto mb-2" width="25px" src="{{ asset('images/people.png') }}" alt="profile">
-                    <p class="font-semibold text-2xl text-white">{{ App\Models\User::where('role', 'reviewer')->count() }}
-                        Reviewers</p>
+
+                <div class="text-center bg-[#2640A1] rounded-lg px-4 py-6 sm:py-8 lg:py-12">
+                    <img class="mx-auto mb-2 w-6 sm:w-8" src="{{ asset('images/people.png') }}" alt="Reviewers">
+                    <p class="font-semibold text-lg sm:text-xl lg:text-2xl text-white">
+                        {{ App\Models\User::where('role', 'reviewer')->count() }} Reviewers
+                    </p>
                 </div>
-                <div class="text-center bg-[#C63740] rounded-lg px-4 py-12">
-                    <img class="mx-auto mb-2" width="25px" src="{{ asset('images/pendings.png') }}" alt="profile">
-                    <p class="font-semibold text-2xl text-white">
-                        {{ App\Models\Application::where('status', 'pending')->count() }} Pending</p>
+
+                <div class="text-center bg-[#C63740] rounded-lg px-4 py-6 sm:py-8 lg:py-12">
+                    <img class="mx-auto mb-2 w-6 sm:w-8" src="{{ asset('images/pendings.png') }}" alt="Pending">
+                    <p class="font-semibold text-lg sm:text-xl lg:text-2xl text-white">
+                        {{ App\Models\Application::where('status', 'pending')->count() }} Pending
+                    </p>
                 </div>
             </div>
 
-            <div class="bg-white rounded-xl px-5 mt-5 py-3">
-                <p class="ml-8">Recent Activity</p>
-                <div class="overflow-y-auto h-62 mt-2">
+            {{-- Recent Activity --}}
+            <div class="bg-white rounded-xl px-3 md:px-5 mt-5 py-3">
+                <p class="ml-2 md:ml-8 font-medium text-gray-800">Recent Activity</p>
+
+                <div class="overflow-y-auto max-h-72 mt-3">
                     @forelse (App\Models\Application::limit(2)->get() as $application)
-                        <div class="w-full rounded-xl px-4 shadow-lg flex items-center mt-4 pb-2">
-                            <div class="w-5/12 flex items-center">
+                        <div
+                            class="w-full rounded-xl border border-gray-100 px-3 md:px-4 py-3 shadow-sm flex flex-col md:flex-row md:items-center justify-between mt-3">
+                            {{-- App Title & User --}}
+                            <div class="flex items-center mb-2 md:mb-0 md:w-5/12">
                                 <div class="w-8 h-8 rounded-full mr-3">
-                                    <img class="h-full w-full rounded-full"
+                                    <img class="h-full w-full rounded-full object-cover"
                                         src="{{ $application->user->profileLink ? asset('storage/' . $application->user->profileLink) : asset('icons/default-profile.png') }}"
                                         alt="profile">
                                 </div>
-                                <h4 class="text-sm fonts-semibold">{{ $application->title }}</h4>
+                                <h4 class="text-sm sm:text-base font-semibold text-gray-800 truncate">
+                                    {{ $application->title }}
+                                </h4>
                             </div>
-                            <div class="w-3/12 text-center border-l px-2">
-                                <p class="text-sm fonts-medium">{{ $application->created_at->format('Y-m-d') }}</p>
+
+                            {{-- Date --}}
+                            <div class="text-center text-sm text-gray-600 md:w-3/12 md:border-l md:px-2">
+                                {{ $application->created_at->format('Y-m-d') }}
                             </div>
-                            <div class="w-2/12 text-center border-l pl-5">
-                                <a
-                                    class="pointer-events-none text-sm fonts-medium px-3 py-1.5 
-                                    {{ $application->status == 'pending'
-                                        ? 'bg-[#F3F4FA] text-[#2640A1]'
-                                        : ($application->status == 'approved'
-                                            ? 'bg-[#F1F4F1] text-[#34A853]'
-                                            : 'bg-[#FFEFEF] text-[#A83449]') }} rounded-lg">
-                                    {{ $application->status == 'pending' ? 'Pending' : ($application->status == 'approved' ? 'Approved' : 'Rejected') }}
-                                </a>
+
+                            {{-- Status --}}
+                            <div class="text-center md:w-2/12 md:border-l md:px-2 my-2 md:my-0">
+                                <span
+                                    class="inline-block text-xs sm:text-sm font-medium px-3 py-1.5 rounded-lg
+                                {{ $application->status == 'pending'
+                                    ? 'bg-[#F3F4FA] text-[#2640A1]'
+                                    : ($application->status == 'approved'
+                                        ? 'bg-[#F1F4F1] text-[#34A853]'
+                                        : 'bg-[#FFEFEF] text-[#A83449]') }}">
+                                    {{ ucfirst($application->status) }}
+                                </span>
                             </div>
-                            <div class="w-2/12 {{ $application->assignedReviewers->count() > 0 ?? 'hover-text' }} text-center border-l px-2">
+
+                            {{-- Action --}}
+                            <div class="text-center md:w-2/12 md:border-l md:px-2">
                                 <a href="/admin/application/{{ $application->id }}"
-                                    class="text-white text-sm fonts-medium px-2 py-1 bg-[#2640A1] rounded">
+                                    class="inline-block text-white text-xs sm:text-sm font-medium px-3 py-1.5 bg-[#2640A1] rounded hover:bg-[#1d3b8b] transition">
                                     See details
                                 </a>
-                                <span class="tooltip-text" id="fade">Not asisigned yet</span>
                             </div>
                         </div>
                     @empty
-                        <p class="text-center">No application available</p>
+                        <p class="text-center text-gray-600 py-4">No application available</p>
                     @endforelse
                 </div>
             </div>
         </div>
-
     </div>
+
 @endsection
 
 @push('css')

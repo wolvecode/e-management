@@ -1,5 +1,5 @@
 <div class="">
-    <dialog id="{{ $application->id }}" class="p-5 w-1/3 rounded">
+    <dialog id="{{ $application->id }}" class="p-5 w-full max-w-lg rounded">
         <button onclick="closed('<?php echo $application->id; ?>')">Close </button>
         <div class="mt-4 max-h-[400px] overflow-y-auto">
             <div class="flex justify-between text-gray-500">

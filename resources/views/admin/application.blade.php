@@ -83,96 +83,105 @@
 @endsection
 
 @section('side')
-    <div class="p-5 overflow-y-auto ">
-        {{-- <div class="sele pl-5">
-            <p class="">Filter By:</p>
-            <form id="myForm" method="GET" class="mt-2">
-                <select onchange="handleChange()" name="status" id="mySelect"
-                    class="h-10 px-3 py-1
-                    border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none
-                    focus:border-sky-500 focus:ring-sky-500 block w-1/6 rounded-md sm:text-sm 
-                    focus:ring-1 rounded-xl">
-                    <option selected>All</option>
-                    <option value="pending">Pending</option>
-                    <option value="approve">Completed</option>
-                    <option value="rejected">Rejected</option>
-                </select>
-            </form>
-        </div> --}}
-        <div class="max-h-[500px] xl:max-h-[540px] 2xl:max-h-[780px] overflow-y-auto bg-gray-100 rounded-xl px-5 py-3 mt-4">
+    <div class="p-3 md:p-5 overflow-y-auto">
+        <div
+            class="max-h-[500px] xl:max-h-[540px] 2xl:max-h-[780px] overflow-y-auto bg-gray-100 rounded-xl px-3 md:px-5 py-3 mt-4">
             <div class="mt-2">
-                <div class="w-full px-4 flex items-center mt-4 py-4">
-                    <div class="w-2/12 flex items-center">
-                        <h4 class="text-sm fonts-semibold">App ID</h4>
+
+                {{-- Table Headers --}}
+                <div
+                    class="hidden md:grid grid-cols-6 gap-2 bg-transparent px-3 md:px-4 py-3 border-b border-gray-200 text-sm font-semibold text-gray-700">
+                    <div class="flex items-center">
+                        <h4>App ID</h4>
                     </div>
-                    <div class="w-2/12 flex items-center">
-                        <img class="mr-3" width="20px" src="{{ asset('icons/list-black.png') }}" alt="list">
-                        <h4 class="text-sm fonts-semibold">Application</h4>
+                    <div class="flex items-center">
+                        <img class="mr-2 w-4" src="{{ asset('icons/list-black.png') }}" alt="list">
+                        <h4>Application</h4>
                     </div>
-                    <div class="w-2/12 flex items-center justify-center">
-                        <img class="mr-3" width="15px" src="{{ asset('icons/calendar.png') }}" alt="Calendar">
-                        <h4 class="text-sm fonts-semibold">Date Submitted</h4>
+                    <div class="flex items-center justify-center">
+                        <img class="mr-2 w-4" src="{{ asset('icons/calendar.png') }}" alt="calendar">
+                        <h4>Date Submitted</h4>
                     </div>
-                    <div class="w-2/12 flex items-center justify-center">
-                        <img class="mr-3" width="15px" src="{{ asset('icons/calendar.png') }}" alt="Calendar">
-                        <h4 class="text-sm fonts-semibold">Reviewer</h4>
+                    <div class="flex items-center justify-center">
+                        <img class="mr-2 w-4" src="{{ asset('icons/calendar.png') }}" alt="calendar">
+                        <h4>Reviewer</h4>
                     </div>
-                    <div class="w-2/12 flex items-center justify-center">
-                        <img class="mr-3" width="15px" src="{{ asset('icons/status-black.png') }}" alt="Calendar">
-                        <h4 class="text-sm fonts-semibold">Status</h4>
+                    <div class="flex items-center justify-center">
+                        <img class="mr-2 w-4" src="{{ asset('icons/status-black.png') }}" alt="status">
+                        <h4>Status</h4>
                     </div>
-                    <div class="w-2/12 text-center  px-2">
+                    <div class="text-center">
+                        <h4>Action</h4>
                     </div>
                 </div>
 
-                @forelse ($applications as $application)
-                    <div class="w-full bg-white rounded-xl px-4 flex items-center mt-4 py-4">
-                        <div class="w-2/12">
-                            <p class="text-sm fonts-medium">{{ $application->app_id }}</p>
-                        </div>
-                        <div class="w-2/12">
-                            <p class="truncate pl-5 text-sm fonts-medium">{!! $application->title !!}</p>
-                        </div>
-                        <div class="w-2/12 text-center border-l px-2">
-                            <p class="text-sm fonts-medium">{{ $application->created_at->format('Y-m-d') }}</p>
-                        </div>
-                        <div class="w-2/12 text-center border-l pl-5">
-                            <button
-                                class="pointer-events-none text-sm fonts-medium px-3 py-1.5 
+                {{-- Applications List --}}
+                <div class="flex flex-col gap-2 md:gap-3">
+                    @forelse ($applications as $application)
+                        <div
+                            class="bg-white rounded-xl shadow-sm px-3 md:px-4 py-3 flex flex-col md:grid md:grid-cols-6 gap-y-2 md:gap-0 items-center text-sm md:text-base">
+                            {{-- App ID --}}
+                            <div class="w-full text-gray-700 md:text-left">
+                                <p class="font-medium">{{ $application->app_id }}</p>
+                            </div>
+
+                            {{-- Application Title --}}
+                            <div class="w-full md:border-l md:pl-3 text-gray-700">
+                                <p class="truncate">{!! $application->title !!}</p>
+                            </div>
+
+                            {{-- Date Submitted --}}
+                            <div class="w-full md:text-center md:border-l md:px-2 text-gray-600">
+                                <p>{{ $application->created_at->format('Y-m-d') }}</p>
+                            </div>
+
+                            {{-- Reviewer Status --}}
+                            <div class="w-full md:text-center md:border-l md:px-2">
+                                <button
+                                    class="text-xs sm:text-sm font-medium px-3 py-1.5 rounded-lg 
                                 {{ $application->review_status == 'approved'
                                     ? 'bg-[#F1F4F1] text-[#34A853]'
                                     : ($application->assignedReviewers->count() > 0
                                         ? 'bg-[#F1F4F1] text-[#34A853]'
-                                        : 'bg-[#FFEFEF] text-[#A83449]') }} rounded-lg">
+                                        : 'bg-[#FFEFEF] text-[#A83449]') }}">
+                                    {{ $application->review_status == 'approved' || $application->review_status == 'rejected' ? 'Completed' : ($application->assignedReviewers->count() > 0 ? 'Assigned' : 'Not assigned') }}
+                                </button>
+                            </div>
 
-                                {{ $application->review_status == 'approved' || $application->review_status == 'rejected' ? 'Completed' : ($application->assignedReviewers->count() > 0 ? 'Assigned' : 'Not assigned') }}
-                            </button>
+                            {{-- Application Status --}}
+                            <div class="w-full md:text-center md:border-l md:px-2">
+                                <span
+                                    class="inline-block text-xs sm:text-sm font-medium px-3 py-1.5 rounded-lg
+                                {{ $application->status == 'pending'
+                                    ? 'bg-[#F3F4FA] text-[#2640A1]'
+                                    : ($application->status == 'approved'
+                                        ? 'bg-[#F1F4F1] text-[#34A853]'
+                                        : 'bg-[#FFEFEF] text-[#A83449]') }}">
+                                    {{ ucfirst($application->status) }}
+                                </span>
+                            </div>
+
+                            {{-- Action Button --}}
+                            <div class="w-full md:text-center md:border-l md:px-2">
+                                <a href="/{{ auth()->user()->role == 'super_admin' ? 'admin' : auth()->user()->role }}/application/{{ $application->id }}"
+                                    class="inline-block text-white text-xs sm:text-sm font-medium px-3 py-1 bg-[#2640A1] rounded hover:bg-[#1f378a] transition">
+                                    See details
+                                </a>
+                            </div>
                         </div>
-                        <div class="w-2/12 text-center border-l pl-5">
-                            <a
-                                class="pointer-events-none text-sm fonts-medium px-3 py-1.5 
-                            {{ $application->status == 'pending'
-                                ? 'bg-[#F3F4FA] text-[#2640A1]'
-                                : ($application->status == 'approved'
-                                    ? 'bg-[#F1F4F1] text-[#34A853]'
-                                    : 'bg-[#FFEFEF] text-[#A83449]') }} rounded-lg">
-                                {{ $application->status == 'pending' ? 'Pending' : ($application->status == 'approved' ? 'Approved' : 'Rejected') }}
-                            </a>
-                        </div>
-                        <div class="w-2/12 {{ $application->assignedReviewers->count() > 0 ?? 'hover-text' }} text-center border-l px-2">
-                            <a href="/{{ auth()->user()->role == 'super_admin' ? 'admin' : auth()->user()->role }}/application/{{ $application->id }}"
-                                class="text-white text-sm fonts-medium px-2 py-1 bg-[#2640A1] rounded">
-                                See details
-                            </a>
-                        </div>
-                    </div>
-                @empty
-                    <p class="text-center">No application available</p>
-                @endforelse
+                    @empty
+                        <p class="text-center py-4 text-gray-600">No application available</p>
+                    @endforelse
+                </div>
             </div>
         </div>
-        <div class="mt-2">{{ $applications->links() }}</div>
+
+        {{-- Pagination --}}
+        <div class="mt-3">
+            {{ $applications->links() }}
+        </div>
     </div>
+
 @endsection
 
 @push('css')

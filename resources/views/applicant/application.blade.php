@@ -151,9 +151,9 @@
 
 @section('side')
     <x-instruction-modal />
-    <div class="p-5">
-        <div class="flex justify-end">
-            <div class="flex">
+    <div class="p-2 md:p-5">
+        <div class="flex flex-col md:flex-row md:justify-end gap-2">
+            <div class="flex flex-col md:flex-row gap-2">
                 @if (auth()->user()->institution == 'unilag')
                     @if (auth()->user()->category == 'animal')
                         <a href="{{ asset('storage/' . 'sample/unilag_animal.docx') }}"
@@ -184,13 +184,13 @@
             </div>
 
         </div>
-        <dialog id="show" class="p-5 w-3/5 rounded">
+        <dialog id="show" class="p-2 md:p-5 w-full max-w-3xl rounded">
             <button class="mt-2" autofocus>Close</button>
             <div class="mt-4">
                 <form action="/applicant/application" method="post" enctype="multipart/form-data">
                     @csrf
-                    <div class="flex mt-8">
-                        <div class="w-1/2 mr-5">
+                    <div class="flex flex-col md:flex-row gap-4 mt-8">
+                        <div class="w-full md:w-1/2 md:mr-5">
                             <span
                                 class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
                                 Enter resarch title
@@ -202,7 +202,7 @@
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
                         </div>
-                        <div class="w-1/2">
+                        <div class="w-full md:w-1/2">
                             <span
                                 class="after:content-['*'] after:ml-0.5 after:text-red-500  text-sm font-medium text-slate-700">
                                 Research Type
@@ -212,8 +212,7 @@
                                 border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none
                                 focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm 
                                 focus:ring-1 capitalize"
-                                readonly
-                                 placeholder="Enter Category" value="{{auth()->user()->category}}" />
+                                readonly placeholder="Enter Category" value="{{ auth()->user()->category }}" />
                             @error('category')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
@@ -257,43 +256,92 @@
                 </form>
             </div>
         </dialog>
-        <div class="2xl:max-h-[780px] h-[580px] overflow-y-auto bg-gray-100 rounded-xl px-5 py-3 mt-5">
-            {{-- xl:max-h-[640px] 2xl:max-h-[780px]  --}}
-            <div class="overflow-y-auto mt-2">
-                <div class="w-full px-4 flex items-center mt-4 py-4">
-                    <div
-                        class="{{ auth()->user()->role == 'admin' || auth()->user()->role == 'super_admin' ? 'w-2/12' : 'w-4/12' }} flex items-center">
-                        <img class="mr-3" width="20px" src="{{ asset('icons/list-black.png') }}" alt="list">
-                        <h4 class="text-sm fonts-semibold">Application</h4>
-                    </div>
-                    @if (auth()->user()->role == 'admin' || auth()->user()->role == 'super_admin')
-                        <div class="{{ auth()->user()->role == 'admin' ? 'w-2/12' : 'w-4/12' }} flex items-center">
-                            <h4 class="text-sm fonts-semibold">App NO:</h4>
+        <div class="mt-4 bg-white shadow-sm rounded-lg overflow-hidden border border-gray-100">
+
+            {{-- Desktop Table View --}}
+            <div class="hidden sm:block overflow-x-auto">
+                <table class="min-w-full text-left border-collapse">
+                    <thead class="bg-gray-100 text-gray-700 text-sm uppercase">
+                        <tr>
+                            <th class="py-3 px-4 font-medium">Title</th>
+                            @if (auth()->user()->role == 'admin' || auth()->user()->role == 'super_admin')
+                                <th class="py-3 px-4 text-center font-medium">App No</th>
+                            @endif
+                            <th class="py-3 px-4 text-center font-medium">Date Submitted</th>
+                            <th class="py-3 px-4 text-center font-medium">Reviewer Status</th>
+                            <th class="py-3 px-4 text-center font-medium">Status</th>
+                            <th class="py-3 px-4 text-center font-medium">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($applications as $application)
+                            <x-single-application-card :application="$application" />
+                        @empty
+                            <tr>
+                                <td colspan="6" class="py-6 text-center text-gray-500">
+                                    No applications found.
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+
+            {{-- Mobile Card View --}}
+            <div class="sm:hidden divide-y divide-gray-200">
+                @forelse ($applications as $application)
+                    <div class="p-4 flex flex-col gap-2 bg-white">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-base font-semibold text-gray-800">
+                                    {{ $application->title }}
+                                </h3>
+                                <p class="text-xs text-gray-500 mt-1">
+                                    {{ $application->created_at->format('M d, Y') }}
+                                </p>
+                            </div>
+                            <div class="flex gap-2">
+                                <a href="/{{ auth()->user()->role }}/application/{{ $application->id }}"
+                                    class="text-white bg-[#325AB3] hover:bg-[#274894] text-xs px-3 py-1 rounded-md transition">
+                                    View
+                                </a>
+                                <a href="{{ asset('storage/' . $application->attachment) }}" target="_blank"
+                                    class="text-[#325AB3] border border-[#325AB3] hover:bg-[#325AB3] hover:text-white text-xs px-3 py-1 rounded-md transition">
+                                    File
+                                </a>
+                            </div>
                         </div>
-                    @endif
-                    <div class="w-2/12 flex items-center justify-center">
-                        <img class="mr-3" width="15px" src="{{ asset('icons/calendar.png') }}" alt="Calendar">
-                        <h4 class="text-sm fonts-semibold">Date Submitted</h4>
+
+                        <div class="grid grid-cols-2 gap-2 text-sm text-gray-600 mt-2">
+                            @if (auth()->user()->role == 'admin' || auth()->user()->role == 'super_admin')
+                                <div class="flex justify-between">
+                                    <span class="font-semibold">App No:</span>
+                                    <span>{{ $application->app_no ?? 'N/A' }}</span>
+                                </div>
+                            @endif
+                            <div class="flex justify-between">
+                                <span class="font-semibold">Reviewer:</span>
+                                <span>{{ ucfirst($application->reviewer_status ?? 'Pending') }}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="font-semibold">Status:</span>
+                                <span>{{ ucfirst($application->status ?? 'Pending') }}</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="w-2/12 flex items-center justify-center">
-                        <img class="mr-3" width="15px" src="{{ asset('icons/profile-black.png') }}" alt="Calendar">
-                        <h4 class="text-sm fonts-semibold">Reviewer Status</h4>
-                    </div>
-                    <div class="w-2/12 flex items-center justify-center">
-                        <img class="mr-3" width="15px" src="{{ asset('icons/status-black.png') }}" alt="Calendar">
-                        <h4 class="text-sm fonts-semibold">Application Status</h4>
-                    </div>
-                    <div class="w-2/12 text-center  px-2">
-                    </div>
-                </div>
-                @forelse (auth()->user()->application()->latest()->paginate(6) as $application)
-                    <x-single-application-card :application="$application" />
                 @empty
-                    <p class="text-center">No application available</p>
+                    <p class="text-center text-gray-500 py-6">No applications found.</p>
                 @endforelse
             </div>
-            <div class="mt-2">{{ auth()->user()->application()->paginate(6)->links() }}</div>
         </div>
+
+        {{-- Pagination --}}
+        @if ($applications->hasPages())
+            <div class="mt-6 flex justify-center">
+                {{ $applications->links('pagination::tailwind') }}
+            </div>
+        @endif
+
     </div>
 @endsection
 
